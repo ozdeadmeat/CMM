@@ -123,7 +123,7 @@ CMM_TITLEDAYS = {
 	Author:			OzDeaDMeaT
 	Description:	Title for day number change. Shows date and Day Count
 	Must spawn:		NO
-    Usage Example:			call CMM_TITLEDAYS;
+    Usage Example:	call CMM_TITLEDAYS;
 	
 	Parameters:
         Index		Type		Variable		Notes
@@ -148,13 +148,13 @@ CMM_MOVEMARKER = {
 	Author:			OzDeaDMeaT
 	Description:	Moves Markers around based on particular object location. (Primarily used for Zeus Objects)
 	Must spawn:		YES
-    Usage Example:			["STRING",OBJECT,ANY] spawn CMM_MOVEMARKER;
+    Usage Example:	["STRING",OBJECT,ANY] spawn CMM_MOVEMARKER;
 	
 	Parameters:
         Index		Type		Variable		Notes
 		0			STRING		_marker			Marker Name
 		1			OBJECT		_Object			Object for marker to track
-		2			ANY		_LOCAL				Sets markers as local markers only
+		2			ANY			_LOCAL			Sets markers as local markers only
 		
     Return:
 					BOOL		true			Returns true when function is complete
@@ -319,7 +319,7 @@ CMM_COUNTDAYS = {
     Author:         Heeeere's Johnny!, adapted from an idea by OzDeaDMeaT
     Description:    Calculates the difference in days between two given dates, taking in account leap years.
     Must spawn:     No
-	Usage Example:			[[STARTDATE],[ENDDATE]] spawn CMM_COUNTDAYS;
+	Usage Example:	[[STARTDATE],[ENDDATE]] spawn CMM_COUNTDAYS;
     
     Parameters:
         0 ARRAY     dateStart	start date in format [year, month, day]
@@ -464,7 +464,6 @@ CMM_MAGCARGOLOAD = {
 	};
 true
 };
-
 CMM_WPNCARGOLOAD = {
 /*
 	Author:			OzDeaDMeaT
