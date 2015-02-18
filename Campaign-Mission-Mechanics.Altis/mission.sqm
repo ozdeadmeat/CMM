@@ -1827,7 +1827,7 @@ class Mission
 			interruptable=1;
 			age="UNKNOWN";
 			text="Server Record";
-			expActiv="call ShowServerScore";
+			expActiv="call CMM_SHOWSERVERSCORE";
 			class Effects
 			{
 			};
@@ -1874,7 +1874,7 @@ class Mission
 			interruptable=1;
 			age="UNKNOWN";
 			text="Service Record";
-			expActiv="call ShowMyScore";
+			expActiv="call CMM_SHOWMYSCORE";
 			class Effects
 			{
 			};
@@ -1891,7 +1891,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_5";
 			expCond="!alive player && (vehicleVarName player == ""Player_5"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -1908,7 +1908,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_4";
 			expCond="!alive player && (vehicleVarName player == ""Player_4"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -1925,7 +1925,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_3";
 			expCond="!alive player && (vehicleVarName player == ""Player_3"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -1942,7 +1942,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_2";
 			expCond="!alive player && (vehicleVarName player == ""Player_2"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -1959,7 +1959,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_1";
 			expCond="!alive player && (vehicleVarName player == ""Player_1"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -1991,7 +1991,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Guy5";
 			expCond="!alive player && (vehicleVarName player == ""Guy5"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2008,7 +2008,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_7";
 			expCond="!alive player && (vehicleVarName player == ""Player_7"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2025,7 +2025,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_8";
 			expCond="!alive player && (vehicleVarName player == ""Player_8"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2042,7 +2042,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_9";
 			expCond="!alive player && (vehicleVarName player == ""Player_9"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2059,7 +2059,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_10";
 			expCond="!alive player && (vehicleVarName player == ""Player_10"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2076,7 +2076,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_11";
 			expCond="!alive player && (vehicleVarName player == ""Player_11"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2093,7 +2093,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_12";
 			expCond="!alive player && (vehicleVarName player == ""Player_12"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2110,7 +2110,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_13";
 			expCond="!alive player && (vehicleVarName player == ""Player_13"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2127,7 +2127,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_14";
 			expCond="!alive player && (vehicleVarName player == ""Player_14"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2144,7 +2144,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_15";
 			expCond="!alive player && (vehicleVarName player == ""Player_15"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2161,7 +2161,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_16";
 			expCond="!alive player && (vehicleVarName player == ""Player_16"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2178,7 +2178,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_17";
 			expCond="!alive player && (vehicleVarName player == ""Player_17"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2195,7 +2195,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_18";
 			expCond="!alive player && (vehicleVarName player == ""Player_18"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2212,7 +2212,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_19";
 			expCond="!alive player && (vehicleVarName player == ""Player_19"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2229,7 +2229,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_20";
 			expCond="!alive player && (vehicleVarName player == ""Player_20"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2246,7 +2246,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_21";
 			expCond="!alive player && (vehicleVarName player == ""Player_21"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2263,7 +2263,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_22";
 			expCond="!alive player && (vehicleVarName player == ""Player_22"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2280,7 +2280,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_23";
 			expCond="!alive player && (vehicleVarName player == ""Player_23"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2297,7 +2297,7 @@ class Mission
 			age="UNKNOWN";
 			text="Count Death Player_24";
 			expCond="!alive player && (vehicleVarName player == ""Player_24"") && !(IsServer)";
-			expActiv="[[],""Server_DeathCount"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_SERVERDEATHCOUNT"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2311,9 +2311,9 @@ class Mission
 			repeating=1;
 			interruptable=1;
 			age="UNKNOWN";
-			text="RemoveDeath";
+			text="CMM_REMOVEDEATH";
 			expCond="this && (vehicleVarName player == ""ZeusPlayer"")";
-			expActiv="[[],""RemoveDeath"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_REMOVEDEATH"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2327,9 +2327,9 @@ class Mission
 			repeating=1;
 			interruptable=1;
 			age="UNKNOWN";
-			text="AddLife";
+			text="CMM_ADDLIFE";
 			expCond="this && (vehicleVarName player == ""ZeusPlayer"")";
-			expActiv="[[],""AddLife"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_ADDLIFE"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2343,9 +2343,9 @@ class Mission
 			repeating=1;
 			interruptable=1;
 			age="UNKNOWN";
-			text="RemoveLife";
+			text="CMM_REMOVELIFE";
 			expCond="this && (vehicleVarName player == ""ZeusPlayer"")";
-			expActiv="[[],""Removelife"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_REMOVELIFE"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2359,9 +2359,9 @@ class Mission
 			repeating=1;
 			interruptable=1;
 			age="UNKNOWN";
-			text="AddDeath";
+			text="CMM_ADDDEATH";
 			expCond="this && (vehicleVarName player == ""ZeusPlayer"")";
-			expActiv="[[],""AddDeath"",false,false,false] call BIS_fnc_MP;";
+			expActiv="[[],""CMM_ADDDEATH"",false,false,false] call BIS_fnc_MP;";
 			class Effects
 			{
 			};
@@ -2377,7 +2377,7 @@ class Mission
 			age="UNKNOWN";
 			text="Move Zeus";
 			expCond="this && (vehicleVarName player == ""ZeusPlayer"")";
-			expActiv="ZeusPlayer call MoveZeus";
+			expActiv="ZeusPlayer call CMM_MOVEZEUS";
 			class Effects
 			{
 			};
@@ -2393,7 +2393,7 @@ class Mission
 			age="UNKNOWN";
 			text="Move Object";
 			expCond="this && (vehicleVarName player == ""ZeusPlayer"")";
-			expActiv="cursorTarget call MoveZeus";
+			expActiv="cursorTarget call CMM_MOVEZEUS";
 			class Effects
 			{
 			};

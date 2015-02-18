@@ -87,7 +87,7 @@ if ((vehicleVarName _player) == "ZeusPlayer") then
 	sleep 3;
 	call CMM_ENTRYTITLE;
 	sleep 10;
-	call ShowMyScore;
+	call CMM_SHOWMYSCORE;
 	};
 true
 };
@@ -442,7 +442,7 @@ true
 CMM_MAGCARGOLOAD = { 	
 /*
 	Author:			OzDeaDMeaT
-	Description:	Sets Object Parts Damage from Array
+	Description:	Loads magazines into crates or Vehicles
 	Must spawn:		NO
     Usage:			[<Object2Load>,[[MAGName],[Quantity]]] call CMM_MAGCARGOLOAD
 	
@@ -552,7 +552,7 @@ CMM_DEDUPARRAY = {
 	};
 _unduplicated
 };  
-GetCfgVehicles = {
+CMM_GETCFGVEHICLE = {
 private ["_objtype","_array","_hitC","_cfg","_PartN","_HitP"];
 //Gets ALL items from config
      _array = ((configFile >> "CfgVehicles") call Bis_fnc_getCfgSubClasses); 
@@ -578,19 +578,6 @@ private ["_objtype","_array","_hitC","_cfg","_PartN","_HitP"];
 		//If(_vehicleC == _this) then {diag_log _add};
 		};
 _output
-};
-CheckPlaced = {
-private ["_veh","_vehicleC"];
-_veh = _this;
-_type = TypeOf _veh;
-_vehicleC = gettext (configFile >> "CfgVehicles" >> _type >> "vehicleClass");
-If(_vehicleC == "Ammo") then {_veh call SetupAmmoCrate};
-if ((_veh iskindOf "LandVehicle") || (_veh iskindOf "Air") || (_veh iskindOf "Ship") && (alive _veh)) then {If ((Count (crew _veh)) == 0) then {_veh call CMM_VEHICLEADD}};
-};
-CheckDeleted = {
-_veh = _this;
-_veh call CMM_VEHICLEREMOVE;
-_veh call CrateRemove;
 };
 CuratorMarkerCheckPlaced = {
 private ["_mkr","_this"];
@@ -669,9 +656,9 @@ private ["_crate","_type"];
 _crate = _this;
 _type = typeOf _crate;
 	If(_type In ACTIONcrates) then {
-		_crate addAction ["<t color='#889C1C'>Grab Equipment</t>", "_this call GetGear",[],0,false,true,"","((_target distance _this < 3) && (GET_SET_GEAR_VAR))"]; 
-		_crate addAction ["<t color='#9E5757'>Stow Equipment</t>", "_this call SetGear",[],0,false,true,"","((_target distance _this < 3) && !(GET_SET_GEAR_VAR))"]; 
-		_crate addAction ["<t color='#5E6FCC'>Set Appearance</t>", "_this call SetAppearance",[],0,false,true,"","(_target distance _this < 5)"];
+		_crate addAction ["<t color='#889C1C'>Grab Equipment</t>", "_this call CMM_GETGEAR",[],0,false,true,"","((_target distance _this < 3) && (GET_SET_GEAR_VAR))"]; 
+		_crate addAction ["<t color='#9E5757'>Stow Equipment</t>", "_this call CMM_SETGEAR",[],0,false,true,"","((_target distance _this < 3) && !(GET_SET_GEAR_VAR))"]; 
+		_crate addAction ["<t color='#5E6FCC'>Set Appearance</t>", "_this call CMM_SETAPPEARANCE",[],0,false,true,"","(_target distance _this < 5)"];
 	};			//VirtualAmmoBox_1 call SetupAmmoCrate			hint format ["%1", GET_SET_GEAR_VAR] 		hint format ["%1", typeof cursorTarget]		Box_FIA_Support_F
 };
 
@@ -766,7 +753,7 @@ _player = _this select 1;
 		
 	} foreach _inventory;
 };
-GetGear = {		//GetGear Loads from profileNameSpace
+CMM_GETGEAR = {		//CMM_GETGEAR Loads from profileNameSpace
 Private ["_unit", "_arsenal","_weapons","_magazines","_Player_UniformItems","_Player_vestItems","_Player_BackpackItems","_array","_priW","_secW","_hgW","_WeaponItems","_priWitems","_secWitems","_hgWitems","_WeaponMags","_priWmag","_secWmag","_hgWmag","_magArray","_Inventory","_uniformITEMS","_vestITEMS","_backpackITEMS"];
 _arsenal = _this select 0;
 _unit = _this select 1;
@@ -815,7 +802,7 @@ saveProfileNamespace;
 systemchat "Equipment and Weapons collected";
 GET_SET_GEAR_VAR = FALSE;
 };
-SetGear = {		//SetGear Saves to profileNameSpace
+CMM_SETGEAR = {		//CMM_SETGEAR Saves to profileNameSpace
 Private ["_unit", "_arsenal","_weapons","_magazines","_Player_UniformItems","_Player_vestItems","_Player_BackpackItems","_array"];
 _arsenal = _this select 0;
 _unit = _this select 1;
@@ -826,7 +813,7 @@ _unit call StripPlayer;
 systemchat "Equipment and Weapons removed";
 GET_SET_GEAR_VAR = TRUE;
 };
-SetAppearance = {
+CMM_SETAPPEARANCE = {
 //Usage: [ammobox1,Unit123] call OzDM_fnc_ArsenalAction;
 Private ["_unit", "_arsenal","_weapons","_magazines","_Player_UniformItems","_Player_vestItems","_Player_BackpackItems","_array"];
 _arsenal = _this select 0;
@@ -845,14 +832,14 @@ _unit = _this select 1;
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //SCORE STUFF
-SetPlayerRank = {
+CMM_SETPLAYERRANK = {
 private["_player","_rankName","_this"];
 _player = _this select 0;
 _rankName = _this select 1;
-diag_log format ["SetPlayerRank Info %1",_this ];
+diag_log format ["CMM_SETPLAYERRANK Info %1",_this ];
 _player setRank _rankName;
 };
-CheckRank = {
+CMM_CHECKRANK = {
 private["_score","_i","_rankID","_RANKSCORE"];
 	_score = _this;
 	_rankID = 0;
@@ -862,7 +849,7 @@ private["_score","_i","_rankID","_RANKSCORE"];
 	};
 _rankID
 };
-ShowMyScore = {
+CMM_SHOWMYSCORE = {
 private["_name","_uid","_VARname","_score","_totalScore","_historyArray","_Missions","_PreviousScore","_SuccessfulMissions","_NextRankName","_NextRankTexture","_NextRankScore","_CurrentRankID","_CurrentRankTexture","_CurrentRankSN","_CurrentRankName","_EMTNR", "_AverageXP","_PreviousRankScore","_CurrentRankBaseScore","_oldRank","_PlayerVarName","_CurrentScore","_nextRankID","_XP2NextRank","_PlayerEntity"];
 _name = name player;
 _uid = getPlayerUID player;
@@ -877,14 +864,14 @@ _score = score player;
 _PlayerOBJ = objectFromNetId (netid player);
 _totalScore = _PreviousScore + _score;
 _oldRank = rankID player;
-_CurrentRankID = _totalScore call CheckRank;
+_CurrentRankID = _totalScore call CMM_CHECKRANK;
 _CurrentRankBaseScore = (RANKSCORE select _CurrentRankID);
 _CurrentScore = _totalScore - _CurrentRankBaseScore;
 _PreviousRankScore = If((_CurrentRankID - 1) >= 0) then {RANKSCORE select (_CurrentRankID - 1)} Else {RANKSCORE select 0};
 _CurrentRankTexture = getText (configFile >> "CfgRanks" >> (str _CurrentRankID) >> "texture");
 _CurrentRankName = (RANKNAME select _CurrentRankID);
 _CurrentRankSN = (RANKSN select _CurrentRankID);
-if(_oldRank != _CurrentRankID) then {[[_PlayerOBJ,_CurrentRankName],"SetPlayerRank",true,false,true] call BIS_fnc_MP};
+if(_oldRank != _CurrentRankID) then {[[_PlayerOBJ,_CurrentRankName],"CMM_SETPLAYERRANK",true,false,true] call BIS_fnc_MP};
 _nextRankID = If((_CurrentRankID + 1) > (count RANKSCORE - 1)) then {count RANKSCORE - 1} Else {_CurrentRankID + 1};
 _NextRankTexture = getText (configFile >> "CfgRanks" >> (str _nextRankID) >> "texture");
 _NextRankScore = (RANKSCORE select _nextRankID);
@@ -928,7 +915,7 @@ hintSilent parseText format
 	",_CurrentRankTexture, _CurrentRankSN, _name, _CurrentRankName, _uid, _score, _AverageXP, _Missions, _SuccessfulMissions, _CurrentScore, _XP2NextRank, _NextRankName, _NextRankTexture, _EMTNR,_PlayerEntity];
 	//	1					2				3		4				5		6			7		8				9					10			11			12				13				14
 };
-ShowServerScore = {
+CMM_SHOWSERVERSCORE = {
 private["_name","_array","_Missions","_SuccessRate","_DeathsPerMission","_Deaths","_MissionsSuccess","_TotalPlayers","_Perc"];
 _name = CAMPAIGN_NAME;
 _array = OzDM_Srv getVariable "MISSION-History";
@@ -979,7 +966,7 @@ OzDM_Srv setVariable ["MISSION-History",[MISSION_HISTORY,MISSION_SUCCESS_HISTORY
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //MARKER STUFF
-Server_DeathCount = {
+CMM_SERVERDEATHCOUNT = {
 	if(IsServer) then {
 		CM_DEATHS = (CM_DEATHS + 1);
 		CM_LIVES = (CM_LIVES - 1);
@@ -992,14 +979,14 @@ Server_DeathCount = {
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //ADMIN STUFF
-AddDeath = {
+CMM_ADDDEATH = {
 	if(IsServer) then {
 		CM_DEATHS = (CM_DEATHS + 1);
 		_txt = format ["Mission Deaths:  %1",CM_DEATHS];
 		CM_DEATHSmkr setMarkerText _txt;
 	};
 };
-RemoveDeath = {
+CMM_REMOVEDEATH = {
 	if(IsServer) then {
 		CM_DEATHS = (CM_DEATHS - 1);
 		_txt = format ["Mission Deaths:  %1",CM_DEATHS];
@@ -1007,21 +994,21 @@ RemoveDeath = {
 		diag_log format ["Death Removed from Mission. Deaths = %1", CM_DEATHS];
 	};
 };
-AddLife = {
+CMM_ADDLIFE = {
 	if(IsServer) then {
 		CM_LIVES = (CM_LIVES + 1);
 		_txt1 = format ["Lives Remaining:  %1",CM_LIVES];
 		CM_LIVESmkr setMarkerText _txt1;
 	};
 };
-Removelife = {
+CMM_REMOVELIFE = {
 	if(IsServer) then {
 		CM_LIVES = (CM_LIVES - 1);
 		_txt1 = format ["Lives Remaining:  %1",CM_LIVES];
 		CM_LIVESmkr setMarkerText _txt1;
 	};
 };
-MoveZeus = {
+CMM_MOVEZEUS = {
 private ["_zeusPlayer"];
 _zeusPlayer = _this;
 	If!(IsNull _zeusPlayer) then {
@@ -1046,4 +1033,17 @@ _veh = _this select 0;
 _name = _this select 1;
 _veh setVehicleVarName _name;
 true
+};
+CheckPlaced = {
+private ["_veh","_vehicleC"];
+_veh = _this;
+_type = TypeOf _veh;
+_vehicleC = gettext (configFile >> "CfgVehicles" >> _type >> "vehicleClass");
+If(_vehicleC == "Ammo") then {_veh call SetupAmmoCrate};
+if ((_veh iskindOf "LandVehicle") || (_veh iskindOf "Air") || (_veh iskindOf "Ship") && (alive _veh)) then {If ((Count (crew _veh)) == 0) then {_veh call CMM_VEHICLEADD}};
+};
+CheckDeleted = {
+_veh = _this;
+_veh call CMM_VEHICLEREMOVE;
+_veh call CrateRemove;
 };
