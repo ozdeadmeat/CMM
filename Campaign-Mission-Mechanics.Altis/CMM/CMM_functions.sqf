@@ -107,7 +107,6 @@ null = 		[[
 			[_DAYS,"<t align='center' size='1.2'>%1</t><br/>"]
 			]] spawn BIS_fnc_typeText;
 };	
-
 CMM_MOVEMARKER = {
 private ["_marker","_Object","_Drop"];
 _marker = _this select 0;

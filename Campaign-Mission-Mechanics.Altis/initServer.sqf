@@ -20,4 +20,4 @@ null = [] spawn iniDB_StartMissionDataLoad;
 //[VirtualAmmoBox,STARTER_CRATE_MAGS,false] call BIS_fnc_addVirtualMagazineCargo;
 
 //Starts Marker Stuff on Server
-["RESPAWN_POSITION_MKR",RESPAWN_POSITION] spawn moveMarker;
+["RESPAWN_POSITION_MKR",RESPAWN_POSITION] spawn CMM_MOVEMARKER;
