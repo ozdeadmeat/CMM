@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project name="ATLAS">
+	<Package name="Squad Manager">
+		<Container name="GUI">
+		
+			<Key ID="STR_ATLAS_SquadManager">
+				<Original>Squad Manager</Original>
+				<English>Squad Manager</English>
+			</Key>
+		
+		
+			<Key ID="STR_ATLAS_JoinGroup">
+				<Original>Join Group</Original>
+				<English>Join Group</English>
+				<Spanish>Unirse</Spanish>
+			</Key>
+			
+			<Key ID="STR_ATLAS_CreateGroup">
+				<Original>Create Group</Original>
+				<English>Create Group</English>
+				<Spanish>Crear</Spanish>
+			</Key>
+		
+		
+			<Key ID="STR_ATLAS_LeaveGroup">
+				<Original>Leave Group</Original>
+				<English>Leave Group</English>
+				<Spanish>Abandonar</Spanish>
+			</Key>
+			
+			<Key ID="STR_ATLAS_GroupName">
+				<Original>Group Name</Original>
+				<English>Group Name</English>
+				<Spanish>Grupo</Spanish>
+			</Key>
+			
+			<Key ID="STR_ATLAS_MakeLeader">
+				<Original>Make Leader</Original>
+				<English>Make Leader</English>
+				<Spanish>Hacer líder</Spanish>
+			</Key>
+			
+			
+			<Key ID="STR_ATLAS_GroupOpen">
+				<Original>Group Open</Original>
+				<English>Group Open</English>
+				<Spanish>grupo Abierto</Spanish>
+			</Key>
+			
+			
+			<Key ID="STR_ATLAS_LockGroup">
+				<Original>Lock Group</Original>
+				<English>Lock Group</English>
+				<Spanish>grupo Abierto</Spanish>
+			</Key>
+		
+		
+			<Key ID="STR_ATLAS_Refresh">
+				<Original>Refresh</Original>
+				<English>Refresh</English>
+				<Czech>Obnovit</Czech>
+				<French>Actualiser</French>
+				<German>Aktualis.</German>
+				<Italian>Aggiorna</Italian>
+				<Polish>Odśwież</Polish>
+				<Portuguese>Atualizar</Portuguese>
+				<Russian>Обновить</Russian>
+				<Spanish>Actualizar</Spanish>
+			</Key>
+		
+		
+			<Key ID="STR_ATLAS_KICK">
+				<Original>Kick</Original>
+				<English>Kick</English>
+				<Czech>Vyhostit</Czech>
+				<French>Ejecter</French>
+				<German>Kicken</German>
+				<Italian>Espelli</Italian>
+				<Polish>Wyrzuć</Polish>
+				<Portuguese>Expulsar</Portuguese>
+				<Russian>Выгнать</Russian>
+				<Spanish>Expulsa</Spanish>
+            </Key>
+		
+			  <Key ID="STR_ATLAS_CLOSE">
+				<Original>Close</Original>
+				<English>Close</English>
+				<Czech>Zavřít</Czech>
+				<French>Fermer</French>
+				<German>Schließen</German>
+				<Italian>Chiudi</Italian>
+				<Polish>Zamknij</Polish>
+				<Portuguese>Fechar</Portuguese>
+				<Russian>Закрыто</Russian>
+				<Spanish>Cerrar</Spanish>
+			  </Key>
+		
+		
+        <Key ID="STR_ATLAS_Locked">
+          <Original>Locked</Original>
+          <English>Locked</English>
+          <Czech>Zamčeno</Czech>
+          <French>Verrouillé</French>
+          <German>Abgeschlossen</German>
+          <Italian>Bloccato</Italian>
+          <Polish>Zablokowane</Polish>
+          <Portuguese>Bloqueado</Portuguese>
+          <Russian>Заблокировано</Russian>
+          <Spanish>Bloqueado</Spanish>
+        </Key>
+		
+		
+        <Key ID="STR_ATLAS_UnLocked">
+          <Original>Unlocked</Original>
+          <English>Unlocked</English>
+          <Czech>Odemčeno</Czech>
+          <French>Déverrouillé</French>
+          <German>Offen</German>
+          <Italian>Sbloccato</Italian>
+          <Polish>Odblokowane</Polish>
+          <Portuguese>Desbloqueado</Portuguese>
+          <Russian>Разблокировано</Russian>
+          <Spanish>Desbloqueado</Spanish>
+        </Key>
+		
+		<Key ID="STR_ATLAS_groupLocked">
+			<Original>Locked the group</Original>
+			<English>Locked the group</English>
+		</Key>
+		
+		<Key ID="STR_ATLAS_groupUnLocked">
+			<Original>Unlocked the group</Original>
+			<English>Unlocked the group</English>
+		</Key>
+		
+		
+		
+		<Key ID="STR_ATLAS_playerKicked">
+			<Original>Was kicked from the group</Original>
+			<English>Was kicked from the group</English>
+		</Key>
+		
+		<Key ID="STR_ATLAS_playerJoined">
+			<Original>Joined the group</Original>
+			<English>Joined the group</English>
+		</Key>
+		
+		<Key ID="STR_ATLAS_playerLeft">
+			<Original>Left the group</Original>
+			<English>Left the group</English>
+		</Key>
+			
+		<Key ID="STR_ATLAS_newLeader">
+			<Original>Now leads the group</Original>
+			<English>Now leads the group</English>
+		</Key>
+			
+		</Container>
+	</Package>
+</Project>
+
+
+
+

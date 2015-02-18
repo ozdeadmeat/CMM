@@ -1,0 +1,64 @@
+//Mission Title Stuff
+author = OzDeaDMeaT;
+onLoadMission = www.clan-botm.com;
+
+onLoadIntroTime=false;
+onLoadMissionTime=True;
+#include "ATLAS\description.ext"
+
+///////////////////////////////////////////////////////////////////////////////////Mission Parameter Stuff
+//In Game Stuff
+briefing=0;
+showGPS=1;
+showCompass=1;
+joinUnassigned = 1;
+enableItemsDropping = 0;
+enableDebugConsole = 1;
+disabledAI=1;
+disableChannels[]={};
+
+//Respawn Stuff
+Respawn = 3;
+RespawnDelay = 5;
+respawnTemplatesWest[] = {"MenuPosition"};
+respawnOnStart = 0;
+
+class Header
+{
+	gameType = ZRPG; // Game type, see 'class' columns in the table below
+	minPlayers = 1; //min # of players the mission supports
+	maxPlayers = 25; //max # of players the mission supports
+};
+
+//INSERT TRAINING PARAM - INJECT PARAM into SAVE and LOAD functions for DB
+
+class CfgDebriefing
+{  
+	class End1
+	{
+		title = "Mission Successful";
+		subtitle = "";
+		description = "You successfully completed the mission. This will go on your permanent record.";
+		pictureBackground = "";
+		picture = "b_inf";
+		pictureColor[] = {0.0,0.3,0.6,1};
+	};
+	class End2
+	{
+		title = "Mission Failed";
+		subtitle = "";
+		description = "You Failed to complete the mission assigned. This will go on your permanent record. OzDeaDMeaT's advice?.... 'Suck Less'";
+		pictureBackground = "";
+		picture = "b_inf";
+		pictureColor[] = {0.0,0.3,0.6,1};
+	};
+	class LOSER
+	{
+		title = "RESERVED SLOT";
+		subtitle = "!!ACCESS DENIED!!";
+		description = "You are not authorized to play in this slot. Please Select another.";
+		pictureBackground = "";
+		picture = "b_inf";
+		pictureColor[] = {0.0,0.3,0.6,1};
+	};
+};

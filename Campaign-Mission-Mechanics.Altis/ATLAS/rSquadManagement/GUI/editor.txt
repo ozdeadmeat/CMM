@@ -1,0 +1,75 @@
+/* #Dexotu
+$[
+	1.063,
+	["rGUI_squadChanger",[[0,0,1,1],0.025,0.04,"GUI_GRID"],0,0,0],
+	[2200,"",[1,"",["0.251892 * safezoneW + safezoneX","0.191961 * safezoneH + safezoneY","0.507865 * safezoneW","0.679964 * safezoneH"],[-1,-1,-1,-1],[0,0,0,0.85],[-1,-1,-1,-1],"","-1"],["idc = -1;"]],
+	[1201,"",[1,"#(argb,8,8,3)color(1,0,0,0.85)",["0.417845 * safezoneW + safezoneX","0.0920216 * safezoneH + safezoneY","0.156841 * safezoneW","0.118994 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1202,"",[1,"#(argb,8,8,3)color(0,0,1,0.85)",["0.417845 * safezoneW + safezoneX","0.0920216 * safezoneH + safezoneY","0.164309 * safezoneW","0.118994 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1204,"",[1,"#(argb,8,8,3)color(0,1,0,0.85)",["0.417845 * safezoneW + safezoneX","0.0920216 * safezoneH + safezoneY","0.164309 * safezoneW","0.118994 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1205,"",[1,"ATLAS\rGUI_BASE\logFrame.paa",["0.183663 * safezoneW + safezoneX","0.0659448 * safezoneH + safezoneY","0.6423 * safezoneW","0.883953 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1600,"",[1,"Join Group",["0.333542 * safezoneW + safezoneX","0.6128 * safezoneH + safezoneY","0.0636458 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |(lbCurSel 1501) call ATLAS_fnc_joinGroup;[] call ATLAS_fnc_refreshGroupList;|"]],
+	[1500,"",[1,"",["0.309063 * safezoneW + safezoneX","0.3026 * safezoneH + safezoneY","0.112604 * safezoneW","0.3008 * safezoneH"],[-1,-1,-1,-1],[0,0,0,0.5],[-1,-1,-1,-1],"","-1"],["sizeEx = 0.025;"]],
+	[1601,"",[1,"EXIT",["0.475521 * safezoneW + safezoneX","0.7162 * safezoneH + safezoneY","0.0448116 * safezoneW","0.0339982 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = closeDialog 0;"]],
+	[1501,"",[1,"",["0.431458 * safezoneW + safezoneX","0.2744 * safezoneH + safezoneY","0.254583 * safezoneW","0.329 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["onLBSelChanged = |[] call ATLAS_fnc_refreshGroupMembers|;"]],
+	[1602,"",[1,"Create Group",["0.333542 * safezoneW + safezoneX","0.6598 * safezoneH + safezoneY","0.0636458 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |[] call ATLAS_fnc_createGroup;|;"]],
+	[1400,"",[1,"",["0.406979 * safezoneW + safezoneX","0.6598 * safezoneH + safezoneY","0.141979 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1603,"",[1,"Leave Group",["0.333542 * safezoneW + safezoneX","0.6128 * safezoneH + safezoneY","0.0636458 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action =  |[] call ATLAS_fnc_leaveGroup;|;"]],
+	[1000,"",[1,"Groupname",["0.309063 * safezoneW + safezoneX","0.265 * safezoneH + safezoneY","0.112604 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1604,"",[1,"Kick Player",["0.431458 * safezoneW + safezoneX","0.3026 * safezoneH + safezoneY","0.05875 * safezoneW","0.0282 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action =  |(lbcursel 1500) call ATLAS_fnc_kickFromGroup;|;"]],
+	[1605,"",[1,"Make Leader",["0.431458 * safezoneW + safezoneX","0.3402 * safezoneH + safezoneY","0.05875 * safezoneW","0.0282 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action =  |(lbcursel 1500) call ATLAS_fnc_makeGroupLeader;|;"]],
+	[2100,"",[1,"group Open",["0.431458 * safezoneW + safezoneX","0.3778 * safezoneH + safezoneY","0.127292 * safezoneW","0.0282 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["onLBSelChanged = |[] call ATLAS_fnc_lockGroup|;"]],
+	[1606,"",[1,"Refresh",["0.656667 * safezoneW + safezoneX","0.688 * safezoneH + safezoneY","0.0391667 * safezoneW","0.047 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = [] call ATLAS_fnc_refreshGroupGUI;"]]
+]
+*/
+
+
+
+
+/* #Reluty
+$[
+	1.063,
+	["rGUI_squadChanger",[[0,0,1,1],0.025,0.04,"GUI_GRID"],0,0,0],
+	[2200,"",[1,"",["0.251892 * safezoneW + safezoneX","0.191961 * safezoneH + safezoneY","0.507865 * safezoneW","0.679964 * safezoneH"],[-1,-1,-1,-1],[0,0,0,0.85],[-1,-1,-1,-1],"","-1"],["idc = -1;"]],
+	[1201,"",[1,"#(argb,8,8,3)color(1,0,0,0.85)",["0.417845 * safezoneW + safezoneX","0.0920216 * safezoneH + safezoneY","0.156841 * safezoneW","0.118994 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1202,"",[1,"#(argb,8,8,3)color(0,0,1,0.85)",["0.417845 * safezoneW + safezoneX","0.0920216 * safezoneH + safezoneY","0.164309 * safezoneW","0.118994 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1204,"",[1,"#(argb,8,8,3)color(0,1,0,0.85)",["0.417845 * safezoneW + safezoneX","0.0920216 * safezoneH + safezoneY","0.164309 * safezoneW","0.118994 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1205,"",[1,"ATLAS\rGUI_BASE\logFrame.paa",["0.183663 * safezoneW + safezoneX","0.0659448 * safezoneH + safezoneY","0.6423 * safezoneW","0.883953 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1600,"",[1,"Join Group",["0.333542 * safezoneW + safezoneX","0.6128 * safezoneH + safezoneY","0.0636458 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |(lbCurSel 1501) call ATLAS_fnc_joinGroup;[] call ATLAS_fnc_refreshGroupList;|"]],
+	[1500,"",[1,"",["0.309063 * safezoneW + safezoneX","0.3026 * safezoneH + safezoneY","0.112604 * safezoneW","0.3008 * safezoneH"],[-1,-1,-1,-1],[0,0,0,0.5],[-1,-1,-1,-1],"","-1"],["sizeEx = 0.025;"]],
+	[1601,"",[1,"EXIT",["0.759479 * safezoneW + safezoneX","0.2744 * safezoneH + safezoneY","0.0448116 * safezoneW","0.0339982 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = closeDialog 0;"]],
+	[1501,"",[1,"",["0.431458 * safezoneW + safezoneX","0.2744 * safezoneH + safezoneY","0.254583 * safezoneW","0.329 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["onLBSelChanged = |[] call ATLAS_fnc_refreshGroupMembers|;"]],
+	[1602,"",[1,"Create Group",["0.333542 * safezoneW + safezoneX","0.6598 * safezoneH + safezoneY","0.0636458 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |[] call ATLAS_fnc_createGroup;|;"]],
+	[1400,"",[1,"",["0.406979 * safezoneW + safezoneX","0.6598 * safezoneH + safezoneY","0.141979 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1603,"",[1,"Leave Group",["0.333542 * safezoneW + safezoneX","0.6128 * safezoneH + safezoneY","0.0636458 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action =  |[] call ATLAS_fnc_leaveGroup;|;"]],
+	[1000,"",[1,"Groupname",["0.309063 * safezoneW + safezoneX","0.265 * safezoneH + safezoneY","0.112604 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1604,"",[1,"Kick Player",["0.0740625 * safezoneW + safezoneX","0.5094 * safezoneH + safezoneY","0.05875 * safezoneW","0.0282 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action =  |(lbcursel 1500) call ATLAS_fnc_kickFromGroup;|;"]],
+	[1605,"",[1,"Make Leader",["0.0740625 * safezoneW + safezoneX","0.547 * safezoneH + safezoneY","0.05875 * safezoneW","0.0282 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action =  |(lbcursel 1500) call ATLAS_fnc_makeGroupLeader;|;"]],
+	[2100,"",[1,"group Open",["0.0446875 * safezoneW + safezoneX","0.6598 * safezoneH + safezoneY","0.127292 * safezoneW","0.0282 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["onLBSelChanged = |[] call ATLAS_fnc_lockGroup|;"]]
+]
+*/
+
+
+
+
+
+
+
+/* #Beputy
+$[
+	1.063,
+	["rGUI_squadChanger",[[0,0,1,1],0.025,0.04,"GUI_GRID"],0,0,0],
+	[2200,"",[1,"",["0.251892 * safezoneW + safezoneX","0.191961 * safezoneH + safezoneY","0.507865 * safezoneW","0.679964 * safezoneH"],[-1,-1,-1,-1],[0,0,0,0.85],[-1,-1,-1,-1],"","-1"],["idc = -1;"]],
+	[1201,"",[1,"#(argb,8,8,3)color(1,0,0,0.85)",["0.417845 * safezoneW + safezoneX","0.0920216 * safezoneH + safezoneY","0.156841 * safezoneW","0.118994 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1202,"",[1,"#(argb,8,8,3)color(0,0,1,0.85)",["0.417845 * safezoneW + safezoneX","0.0920216 * safezoneH + safezoneY","0.164309 * safezoneW","0.118994 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1204,"",[1,"#(argb,8,8,3)color(0,1,0,0.85)",["0.417845 * safezoneW + safezoneX","0.0920216 * safezoneH + safezoneY","0.164309 * safezoneW","0.118994 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1205,"",[1,"ATLAS\rGUI_BASE\logFrame.paa",["0.183663 * safezoneW + safezoneX","0.0659448 * safezoneH + safezoneY","0.6423 * safezoneW","0.883953 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1600,"",[1,"Join Group",["0.333542 * safezoneW + safezoneX","0.6128 * safezoneH + safezoneY","0.0636458 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = |(lbCurSel 1501) call ATLAS_fnc_joinGroup;[] call ATLAS_fnc_refreshGroupList;|"]],
+	[1500,"",[1,"",["0.309063 * safezoneW + safezoneX","0.3026 * safezoneH + safezoneY","0.112604 * safezoneW","0.3008 * safezoneH"],[-1,-1,-1,-1],[0,0,0,0.5],[-1,-1,-1,-1],"","-1"],["sizeEx = 0.025;"]],
+	[1601,"",[1,"EXIT",["0.759479 * safezoneW + safezoneX","0.2744 * safezoneH + safezoneY","0.0448116 * safezoneW","0.0339982 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action = closeDialog 0;"]],
+	[1501,"",[1,"",["0.431458 * safezoneW + safezoneX","0.2744 * safezoneH + safezoneY","0.254583 * safezoneW","0.329 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1602,"",[1,"Create Group",["0.333542 * safezoneW + safezoneX","0.6598 * safezoneH + safezoneY","0.0636458 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1400,"",[1,"",["0.406979 * safezoneW + safezoneX","0.6598 * safezoneH + safezoneY","0.141979 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]],
+	[1603,"",[1,"Leave Group",["0.333542 * safezoneW + safezoneX","0.6128 * safezoneH + safezoneY","0.0636458 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["action =  |[] call ATLAS_fnc_leaveGroup;|;"]],
+	[1000,"",[1,"Groupname",["0.309063 * safezoneW + safezoneX","0.265 * safezoneH + safezoneY","0.112604 * safezoneW","0.0376 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],[]]
+]
+*/

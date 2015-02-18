@@ -1,0 +1,9 @@
+DisableAI=0 Must be set in Description.ext
+
+To Do:
+
+Track Supply Levels in Supply Vehicles.
+Create AI Crew for Friendly UAV's Left on the feild.
+Create Ammo Crate Function that adds actions to every crate.
+
+
