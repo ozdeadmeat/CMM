@@ -14,4 +14,4 @@ _didJIP =  _this select 1;
 
 _player spawn CMM_PLAYER_STARTUP; //Function in Misc Functions
 sleep 15;
-null = [] spawn JIP_SetupAmmoCrate; //Loads Actions for all current Crates in game
+null = [] spawn CMM_JIP_ADDCRATEACTION; //Loads Actions for all current Crates in game

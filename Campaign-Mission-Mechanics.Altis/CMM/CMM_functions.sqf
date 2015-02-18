@@ -5,7 +5,7 @@ CMM_PLAYER_STARTUP = {
 	Author:			OzDeaDMeaT
 	Description:	Initialization for Players in CMM enabled missions
 	Must spawn:		YES
-    Usage:			player spawn CMM_PLAYER_STARTUP;
+    Usage Example:			player spawn CMM_PLAYER_STARTUP;
 	
 	Parameters:
         Index		Type		Variable		Notes
@@ -36,10 +36,10 @@ if ((vehicleVarName _player) == "ZeusPlayer") then
 			9 setRadioMsg "Move Zeus";
 			10 setRadioMsg "Move CursorTarget";
 			
-			Zeus addEventHandler ["CuratorObjectPlaced",{[_this,"CuratorObjectCheckPlaced",ZeusPlayer,false,false] call BIS_fnc_MP}];
-			Zeus addEventHandler ["CuratorObjectDeleted",{[_this,"CuratorObjectCheckDeleted",ZeusPlayer,false,false] call BIS_fnc_MP}];
-			Zeus addEventHandler ["CuratorMarkerPlaced",{[_this,"CuratorMarkerCheckPlaced",ZeusPlayer,false,false] call BIS_fnc_MP}];
-			Zeus addEventHandler ["CuratorMarkerDeleted",{[_this,"CuratorMarkerCheckDeleted",ZeusPlayer,false,false] call BIS_fnc_MP}];
+			Zeus addEventHandler ["CuratorObjectPlaced",{[_this,"CMM_CURATOROBJECTPLACED",ZeusPlayer,false,false] call BIS_fnc_MP}];
+			Zeus addEventHandler ["CuratorObjectDeleted",{[_this,"CMM_CURATOROBJECTREMOVE",ZeusPlayer,false,false] call BIS_fnc_MP}];
+			Zeus addEventHandler ["CuratorMarkerPlaced",{[_this,"CMM_CURATORMARKERPLACED",ZeusPlayer,false,false] call BIS_fnc_MP}];
+			Zeus addEventHandler ["CuratorMarkerDeleted",{[_this,"CMM_CURATORMARKERREMOVE",ZeusPlayer,false,false] call BIS_fnc_MP}];
 			Zeus call BIS_fnc_drawCuratorLocations;
 			//Starts Marker Stuff on Server
 			["RETURN_MKR",return,"LOCAL"] spawn CMM_MOVEMARKER;
@@ -49,7 +49,7 @@ if ((vehicleVarName _player) == "ZeusPlayer") then
 	}
 Else
 	{
-	_player call StripPlayer;
+	_player call CMM_STRIPPLAYER;
 	3 setRadioMsg "NULL";
 	4 setRadioMsg "NULL";
 	5 setRadioMsg "NULL";
@@ -98,7 +98,7 @@ CMM_ENTRYTITLE = {
 	Author:			OzDeaDMeaT
 	Description:	Player Mission Entry Title sequence
 	Must spawn:		NO
-    Usage:			call CMM_ENTRYTITLE;
+    Usage Example:			call CMM_ENTRYTITLE;
 	
 	Parameters:
         Index		Type		Variable		Notes
@@ -123,7 +123,7 @@ CMM_TITLEDAYS = {
 	Author:			OzDeaDMeaT
 	Description:	Title for day number change. Shows date and Day Count
 	Must spawn:		NO
-    Usage:			call CMM_TITLEDAYS;
+    Usage Example:			call CMM_TITLEDAYS;
 	
 	Parameters:
         Index		Type		Variable		Notes
@@ -148,7 +148,7 @@ CMM_MOVEMARKER = {
 	Author:			OzDeaDMeaT
 	Description:	Moves Markers around based on particular object location. (Primarily used for Zeus Objects)
 	Must spawn:		YES
-    Usage:			["STRING",OBJECT,ANY] spawn CMM_MOVEMARKER;
+    Usage Example:			["STRING",OBJECT,ANY] spawn CMM_MOVEMARKER;
 	
 	Parameters:
         Index		Type		Variable		Notes
@@ -201,7 +201,7 @@ CMM_SERVERMARKERPROCESS = {
 	Author:			OzDeaDMeaT
 	Description:	Server Marker Process for updating Active Players and Day Marker
 	Must spawn:		YES
-    Usage:			spawn CMM_SERVERMARKERPROCESS;
+    Usage Example:			spawn CMM_SERVERMARKERPROCESS;
 	
 	Parameters:
         Index		Type		Variable		Notes
@@ -241,7 +241,7 @@ CMM_FORMATDATE = {
 	Author:			OzDeaDMeaT
 	Description:	Moves Markers around based on particular object location. (Primarily used for Zeus Objects)
 	Must spawn:		YES
-    Usage:			[YEAR,MONTH,DAY,HOUR,MINUTE] spawn CMM_MOVEMARKER;
+    Usage Example:			[YEAR,MONTH,DAY,HOUR,MINUTE] spawn CMM_MOVEMARKER;
 	
 	Parameters:
         Index				Type				Variable				Notes
@@ -319,7 +319,7 @@ CMM_COUNTDAYS = {
     Author:         Heeeere's Johnny!, adapted from an idea by OzDeaDMeaT
     Description:    Calculates the difference in days between two given dates, taking in account leap years.
     Must spawn:     No
-	Usage:			[[STARTDATE],[ENDDATE]] spawn CMM_COUNTDAYS;
+	Usage Example:			[[STARTDATE],[ENDDATE]] spawn CMM_COUNTDAYS;
     
     Parameters:
         0 ARRAY     dateStart	start date in format [year, month, day]
@@ -387,7 +387,7 @@ CMM_GETPARTDMG = {
 	Author:			OzDeaDMeaT
 	Description:	Reports Object Parts Damage in Array Format
 	Must spawn:		NO
-    Usage:			OBJECT call CMM_GETPARTDMG;
+    Usage Example:			OBJECT call CMM_GETPARTDMG;
 	
 	Parameters:
         Index				Type				Variable				Notes
@@ -419,7 +419,7 @@ CMM_SETPARTDMG = {
 	Author:			OzDeaDMeaT
 	Description:	Sets Object Parts Damage from Array
 	Must spawn:		NO
-    Usage:			[Vehicle,[CMM_GETPARTDMGArray]] call CMM_SETPARTDMG
+    Usage Example:			[Vehicle,[CMM_GETPARTDMGArray]] call CMM_SETPARTDMG
 	
 	Parameters:
         Index				Type				Variable				Notes
@@ -444,7 +444,7 @@ CMM_MAGCARGOLOAD = {
 	Author:			OzDeaDMeaT
 	Description:	Loads magazines into crates or Vehicles
 	Must spawn:		NO
-    Usage:			[<Object2Load>,[[MAGName],[Quantity]]] call CMM_MAGCARGOLOAD
+    Usage Example:			[<Object2Load>,[[MAGName],[Quantity]]] call CMM_MAGCARGOLOAD
 	
 	Parameters:
         Index				Type				Variable				Notes
@@ -465,8 +465,22 @@ CMM_MAGCARGOLOAD = {
 true
 };
 
-CMM_WPNCARGOLOAD = {	//Usage = [<Object2Load>,[[WeaponName],[Quantity]]] call CMM_WPNCARGOLOAD
-	private["_crate","_array","_count","_i"];
+CMM_WPNCARGOLOAD = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Sets weapon cargo from array
+	Must spawn:		NO
+	Usage Example:	[<Object2Load>,[[WeaponName],[QuantityArray]]] call CMM_WPNCARGOLOAD
+	
+	Parameters:
+        Index				Type				Variable				Notes
+		0					OBJECT				_crate					Object to add weapon cargo to
+		1					ARRAY										[CLASSNAME,AMOUNT]
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private["_crate","_arr1","_arr2","_count","_i"];
 	_crate = _this select 0; //Object ClassNames are being loaded into
 	_arr1 = (_this select 1) select 0; //ClassName
 	_arr2 = (_this select 1) select 1; //Amount
@@ -474,8 +488,22 @@ CMM_WPNCARGOLOAD = {	//Usage = [<Object2Load>,[[WeaponName],[Quantity]]] call CM
 	for "_i" from 0 to (_count - 1) do {
 		_crate addWeaponCargoGlobal [(_arr1 select _i),(_arr2 select _i)];};
 };
-CMM_ITMCARGOLOAD = {		//Usage = [<Object2Load>,[[ItemName],[Quantity]]] call CMM_ITMCARGOLOAD
-	private["_crate","_array","_count","_i"];
+CMM_ITMCARGOLOAD = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Sets item cargo from array
+	Must spawn:		NO
+    Usage:			[<Object2Load>,[[ItemName],[Quantity]]] call CMM_ITMCARGOLOAD
+	
+	Parameters:
+        Index				Type				Variable				Notes
+		0					OBJECT				_crate					Object to add item cargo to
+		1					ARRAY										[CLASSNAME,AMOUNT]
+		
+    Return:
+							BOOL				true					Returns true when function is complete
+*/
+private["_crate","_arr1","_arr2","_count","_i"];
 	_crate = _this select 0; //Object ClassNames are being loaded into
 	_arr1 = (_this select 1) select 0; //ClassName
 	_arr2 = (_this select 1) select 1; //Amount
@@ -483,8 +511,22 @@ CMM_ITMCARGOLOAD = {		//Usage = [<Object2Load>,[[ItemName],[Quantity]]] call CMM
 	for "_i" from 0 to (_count - 1) do {
 		_crate addItemCargoGlobal [(_arr1 select _i),(_arr2 select _i)];};
 };
-CMM_BKPCARGOLOAD = {		//Usage = [<Object2Load>,[[ItemName],[Quantity]]] call CMM_BKPCARGOLOAD
-	private["_crate","_array","_count","_i"];
+CMM_BKPCARGOLOAD = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Sets Backpack cargo from array
+	Must spawn:		NO
+    Usage:			[<Object2Load>,[[ItemName],[Quantity]]] call CMM_BKPCARGOLOAD
+	
+	Parameters:
+        Index				Type				Variable				Notes
+		0					OBJECT				_crate					Object to add backpack cargo to
+		1					ARRAY										[CLASSNAME,AMOUNT]
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private["_crate","_arr1","_arr2","_count","_i"];
 	_crate = _this select 0; //Object ClassNames are being loaded into
 	_arr1 = (_this select 1) select 0; //ClassName
 	_arr2 = (_this select 1) select 1; //Amount
@@ -493,6 +535,19 @@ CMM_BKPCARGOLOAD = {		//Usage = [<Object2Load>,[[ItemName],[Quantity]]] call CMM
 		_crate addBackpackCargoGlobal [(_arr1 select _i),(_arr2 select _i)];};
 };
 CMM_VEHICLEADD = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Adds vehicle to Vehicle backup array
+	Must spawn:		NO
+    Usage:			vehicle call CMM_VEHICLEADD
+	
+	Parameters:
+        Index				Type				Variable				Notes
+		0					OBJECT				_this					Vehicle Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_this","_check","_TMPname"];
 _TMPname = format ["MISSIONVEHICLE_%1",VEHICLE_COUNT];
 missionNamespace setVariable [_TMPname,_this];
@@ -505,6 +560,19 @@ if ((RESTORED_VEHICLE find (_this)) == -1) then {
 _check
 };
 CMM_OBJECTADD = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Adds object to Object backup array
+	Must spawn:		NO
+    Usage:			object call CMM_OBJECTADD
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0 			OBJECT		_this			Object to add to array
+    
+    Return:
+					BOOL		_check			Returns true when function is complete
+*/
 private ["_this","_check","_TMPname"];
 _TMPname = format ["MISSIONOBJ_%1",OBJECT_COUNT];
 missionNamespace setVariable [_TMPname,_this];
@@ -517,17 +585,53 @@ if ((RESTORED_OBJ find (_this)) == -1) then {
 _check
 };
 CMM_VEHICLEREMOVE = {
-//Usage Vehicle call CMM_VEHICLEREMOVE
+/*
+	Author:			OzDeaDMeaT
+	Description:	Removes vehicle from backup array
+	Must spawn:		NO
+    Usage:			object call CMM_VEHICLEREMOVE
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0 			Object		_this			Object to remove from array
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 RESTORED_VEHICLE = RESTORED_VEHICLE - [_this];
 true
 };
 CMM_OBJECTREMOVE = {
-//Usage Vehicle call CMM_VEHICLEREMOVE
+/*
+	Author:			OzDeaDMeaT
+	Description:	Removes Object from backup array
+	Must spawn:		NO
+    Usage:			object call CMM_OBJECTREMOVE
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0 			Object		_this			Object to remove from array
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 RESTORED_OBJ = RESTORED_OBJ - [_this];
 true
 };
 CMM_MARKERADD = {
-//Usage Vehicle call CMM_VEHICLEADD
+/*
+	Author:			OzDeaDMeaT
+	Description:	Adds Markers to backup markers backup array
+	Must spawn:		NO
+    Usage:			Marker call CMM_MARKERADD
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0 			STRING		_this			Marker to remove from backup array	
+    
+    Return:
+					BOOL		_check			Returns true when function is complete
+*/
 private ["_this","_check"];
 if ((RESTORED_MARKERS find (_this)) == -1) then {
 	RESTORED_MARKERS = RESTORED_MARKERS + [_this];
@@ -537,11 +641,36 @@ if ((RESTORED_MARKERS find (_this)) == -1) then {
 _check
 };
 CMM_MARKERREMOVE = {
-//Usage Vehicle call CMM_VEHICLEREMOVE
+/*
+	Author:			OzDeaDMeaT
+	Description:	Removes Markers from backup markers array
+	Must spawn:		NO
+    Usage:			Marker call CMM_MARKERREMOVE
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0 			String			_this				Marker to remove from backup array
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 RESTORED_MARKERS = RESTORED_MARKERS - [_this];
 true
 };
 CMM_DEDUPARRAY = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Removes duplicate entries in array
+	Must spawn:		NO
+    Usage Example:	call CMM_GETCFGVEHICLE
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		1			ARRAY		_array			Array of Items
+		
+    Return:
+					ARRAY		_unduplicated	Returns an array without duplicates
+*/
     private ["_array", "_unduplicated", "_original","_exists"];
     _array = _this;
     _unduplicated = [];
@@ -553,7 +682,20 @@ CMM_DEDUPARRAY = {
 _unduplicated
 };  
 CMM_GETCFGVEHICLE = {
-private ["_objtype","_array","_hitC","_cfg","_PartN","_HitP"];
+/*
+	Author:			OzDeaDMeaT
+	Description:	Adds Zeus Curator marker object to Backup DB
+	Must spawn:		NO
+    Usage Example:	call CMM_GETCFGVEHICLE
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		1			STRING		_mkr			Vehicle Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private ["_objtype","_array","_arrayC","_hitC","_cfg","_PartN","_HitP","_output","_nl","_item","_ClassName","_displayName","_vehicleC","_faction","_hiddenSelections","_hiddenSelectionsTextures","_picture","_UIF","_author","_add"];
 //Gets ALL items from config
      _array = ((configFile >> "CfgVehicles") call Bis_fnc_getCfgSubClasses); 
 	 _arrayC = (count _array) - 1;
@@ -574,24 +716,65 @@ private ["_objtype","_array","_hitC","_cfg","_PartN","_HitP"];
 		_author = gettext (configFile >> "CfgVehicles" >> _item >> "author");
 		_add = format ["%1_!_%2_!_%3_!_%4_!_%5_!_%6_!_%7_!_%8_!_%9%10",_displayName,_ClassName,_vehicleC,_faction,_hiddenSelections,_hiddenSelectionsTextures,_picture,_UIF,_author,_nl];
 		//													1			2			3			4			5				6			7						8		9	10
-		//_output = _output + _add;
+		_output = _output + _add;
 		//If(_vehicleC == _this) then {diag_log _add};
 		};
 _output
 };
-CuratorMarkerCheckPlaced = {
+CMM_CURATORMARKERPLACED = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Adds Zeus Curator marker object to Backup DB
+	Must spawn:		NO
+    Usage Example:	object call CMM_CURATORMARKERPLACED
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		1			STRING		_mkr			Vehicle Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_mkr","_this"];
 _mkr = _this select 1;
 [_mkr,"CMM_MARKERADD",false,false,false] call BIS_fnc_MP;
 //hint format ["%1", _check];
 //diag_log format ["%1", _check];
+true
 };
-CuratorMarkerCheckDeleted = {
+CMM_CURATORMARKERREMOVE = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Zeus Curator marker removed, removes marker from Backup DB
+	Must spawn:		NO
+    Usage Example:	Marker call CMM_CURATORMARKERREMOVE
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		1			STRING		_mkr			Marker
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_mkr","_this"];
 _mkr = _this select 1;
 [_mkr,"CMM_MARKERREMOVE",false,false,false] call BIS_fnc_MP;
+true
 };
-CuratorObjectCheckPlaced = {
+CMM_CURATOROBJECTPLACED = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Zeus Curator object removed removes object from Backup DB
+	Must spawn:		NO
+    Usage Example:	object call CMM_CURATOROBJECTREMOVE
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		1			OBJECT		_veh			Vehicle Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_veh","_vehicleC","_type","_DN"];
 _veh = _this select 1;
 _type = TypeOf _veh;
@@ -607,11 +790,26 @@ if ((_veh iskindOf "LandVehicle") || (_veh iskindOf "Air") || (_veh iskindOf "Sh
 	};
 };  
 If(_vehicleC == "AGM_Repair_Items") then {[_veh,"CMM_OBJECTADD",false,false,false] call BIS_fnc_MP};
-If(_vehicleC == "Ammo") then {[_veh,"CrateAdd",false,false,false] call BIS_fnc_MP; [_veh,"SetupAmmoCrate",true,false,true] call BIS_fnc_MP};
+If(_vehicleC == "Ammo") then {[_veh,"CMM_CRATEADD",false,false,false] call BIS_fnc_MP; [_veh,"CMM_ADDCRATEACTION",true,false,true] call BIS_fnc_MP};
 If (_type In NOTALLOWED) then {deleteVehicle _veh; SystemChat format ["Placement of '%1' is NOT allowed in this mission",_DN]};
 If (_type == "ModuleEndMission_F") then {deleteVehicle _veh; SystemChat "Use Radio Buttons to End Mission"};
+true
 };
-CuratorObjectCheckDeleted = {
+CMM_CURATOROBJECTREMOVE = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Zeus Curator object removed removes object from Backup DB
+	Must spawn:		NO
+    Usage Example:	object call CMM_CURATOROBJECTREMOVE
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		1			OBJECT		_veh			Vehicle Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private ["_veh","_vehicleC","_type"];
 _veh = _this select 1;
 _type = TypeOf _veh;
 _vehicleC = gettext (configFile >> "CfgVehicles" >> _type >> "vehicleClass");
@@ -619,11 +817,24 @@ if ((_veh iskindOf "LandVehicle") || (_veh iskindOf "Air") || (_veh iskindOf "Sh
 	[_veh,"CMM_VEHICLEREMOVE",false,false,false] call BIS_fnc_MP;
 	//diag_log format ["%1 Vehicle Removed",_veh];
 };
-If(_vehicleC == "Ammo") then {[_veh,"CrateRemove",false,false,false] call BIS_fnc_MP};
+If(_vehicleC == "Ammo") then {[_veh,"CMM_CRATEREMOVE",false,false,false] call BIS_fnc_MP};
+true
 };
 
-CrateAdd = {
-//Usage Vehicle call CMM_VEHICLEADD
+CMM_CRATEADD = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Removes crate from backup array
+	Must spawn:		NO
+    Usage Example:	crate call CMM_CRATEREMOVE
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_this			Crate Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_this","_check","_TMPname"];
 _TMPname = format ["MISSIONCRATE_%1", CRATE_COUNT];
 missionNamespace setVariable [_TMPname,_this];
@@ -636,22 +847,59 @@ if ((RESTORED_CRATE find (_this)) == -1) then {
 } Else {_check = false};
 _check
 };
-CrateRemove = {
-//Usage Vehicle call CMM_VEHICLEREMOVE
+CMM_CRATEREMOVE = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Removes crate from backup array
+	Must spawn:		NO
+    Usage Example:	crate call CMM_CRATEREMOVE
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_this			Crate Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 RESTORED_CRATE = RESTORED_CRATE - [_this];
 OzDM_Srv setVariable ["RESTORED_CRATE", RESTORED_CRATE, true];
 true
 };
-JIP_SetupAmmoCrate = {
+CMM_JIP_ADDCRATEACTION = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Adds Actions to Crates for players Joining in Progress
+	Must spawn:		NO
+    Usage Example:	call CMM_JIP_ADDCRATEACTION
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		
+    Return:
+					ARRAY		_output			Returns Array of equipment / weapons
+*/
 private ["_Array","_crate"];
 _Array = OzDM_Srv getVariable ["RESTORED_CRATE",[]];
 for "_i" from 0 to ((count _Array) - 1) do {
 	_crate = _Array select _i;
-	if(_crate != objNull) then {_crate call SetupAmmoCrate};
+	if(_crate != objNull) then {_crate call CMM_ADDCRATEACTION};
 	};
 systemChat "AmmoCrates Initialized";
 };
-SetupAmmoCrate = {
+CMM_ADDCRATEACTION = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Adds Actions to Crate
+	Must spawn:		NO
+    Usage Example:	crate call CMM_ADDCRATEACTION
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_crate			_crate Object
+		
+    Return:
+					ARRAY		_output			Returns Array of equipment / weapons
+*/
 private ["_crate","_type"];
 _crate = _this;
 _type = typeOf _crate;
@@ -659,14 +907,25 @@ _type = typeOf _crate;
 		_crate addAction ["<t color='#889C1C'>Grab Equipment</t>", "_this call CMM_GETGEAR",[],0,false,true,"","((_target distance _this < 3) && (GET_SET_GEAR_VAR))"]; 
 		_crate addAction ["<t color='#9E5757'>Stow Equipment</t>", "_this call CMM_SETGEAR",[],0,false,true,"","((_target distance _this < 3) && !(GET_SET_GEAR_VAR))"]; 
 		_crate addAction ["<t color='#5E6FCC'>Set Appearance</t>", "_this call CMM_SETAPPEARANCE",[],0,false,true,"","(_target distance _this < 5)"];
-	};			//VirtualAmmoBox_1 call SetupAmmoCrate			hint format ["%1", GET_SET_GEAR_VAR] 		hint format ["%1", typeof cursorTarget]		Box_FIA_Support_F
+	};			//VirtualAmmoBox_1 call CMM_ADDCRATEACTION			hint format ["%1", GET_SET_GEAR_VAR] 		hint format ["%1", typeof cursorTarget]		Box_FIA_Support_F
+true
 };
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //PLAYER STUFF
-PlayerGearArray = {
-//usage [crate,player] call PlayerGearArray_SAVE; RETURNS ARRAY OF ARRAYS (excludes uniform and assigned items)
-//If there is no room to load item into various uniform compartments item is loaded into crate
+CMM_PLAYERGEARARRAY = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Formats array of current players loadout
+	Must spawn:		NO
+    Usage Example:	[crate,player] call CMM_PLAYERGEARARRAY (excludes uniform and assigned items)
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_player			Player Object
+		
+    Return:
+					ARRAY		_output			Returns Array of equipment / weapons
+*/
 private ["_player", "_headgear","_goggles","_uniform","_uniformITEMS","_vest","_vestITEMS","_backpack","_backpackITEMS","_priW","_priWitems","_priWmag","_secW","_secWitems","_secWmag","_hgW","_hgWitems","_hgWmag","_assignedItems","_attire","_weapons","_weaponsITEMS","_weaponsMAGS","_inventory","_check","_output"];	
 _player = _this;
 _headgear = headgear _player;
@@ -695,7 +954,20 @@ _inventory =	[_uniformITEMS, _vestITEMS, _backpackITEMS];
 _output = [_weapons, _weaponsITEMS, _weaponsMAGS, _inventory];
 _output
 };
-StripPlayer = {
+CMM_STRIPPLAYER = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Removes weapons and items from player leaving Assigned Items (excludes Assigned Item weapons - e.g. Binoculars)
+	Must spawn:		NO
+    Usage Example:	player call CMM_STRIPPLAYER;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_player			Player Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_player"];
 _player = _this;
 removeAllWeapons _player; 
@@ -703,9 +975,21 @@ removeAllWeapons _player;
 {_player removeItemFromUniform _x} foreach (uniformItems _player);
 {_player removeItemFromVest _x} foreach (vestItems _player);
 };
-ReturnEquipment = {
-//		This Function dumps all inventory of a player including weapons (This includes binoculars etc that 
-//		Usage = [cursorTarget,player] spawn ReturnEquipment;
+CMM_RETURNEQUIPMENT = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	This Function dumps all inventory of a player including weapons (This includes binoculars Item Slot)
+	Must spawn:		NO
+    Usage Example:	[ammobox1,Unit123] call CMM_RETURNEQUIPMENT;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_crate			Crate Object
+		1			OBJECT		_unit			Player Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_crate","_player"];
 _crate = _this select 0;
 _player = _this select 1;
@@ -752,8 +1036,23 @@ _player = _this select 1;
 	};
 		
 	} foreach _inventory;
+true
 };
-CMM_GETGEAR = {		//CMM_GETGEAR Loads from profileNameSpace
+CMM_GETGEAR = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Retrieves loadout from  profileNameSpace
+	Must spawn:		NO
+    Usage Example:	[ammobox1,Unit123] call CMM_GETGEAR;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_arsenal		Crate Object
+		1			OBJECT		_unit			Player Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 Private ["_unit", "_arsenal","_weapons","_magazines","_Player_UniformItems","_Player_vestItems","_Player_BackpackItems","_array","_priW","_secW","_hgW","_WeaponItems","_priWitems","_secWitems","_hgWitems","_WeaponMags","_priWmag","_secWmag","_hgWmag","_magArray","_Inventory","_uniformITEMS","_vestITEMS","_backpackITEMS"];
 _arsenal = _this select 0;
 _unit = _this select 1;
@@ -801,20 +1100,48 @@ profileNameSpace setVariable [PlayerSTORE_VAR,[]];
 saveProfileNamespace;
 systemchat "Equipment and Weapons collected";
 GET_SET_GEAR_VAR = FALSE;
+true
 };
-CMM_SETGEAR = {		//CMM_SETGEAR Saves to profileNameSpace
+CMM_SETGEAR = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Saves loadout to profileNameSpace
+	Must spawn:		NO
+    Usage Example:	[ammobox1,Unit123] call CMM_SETAPPEARANCE;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_arsenal		Crate Object
+		1			OBJECT		_unit			Player Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 Private ["_unit", "_arsenal","_weapons","_magazines","_Player_UniformItems","_Player_vestItems","_Player_BackpackItems","_array"];
 _arsenal = _this select 0;
 _unit = _this select 1;
-_array = _unit call PlayerGearArray;
+_array = _unit call CMM_PLAYERGEARARRAY;
 profileNameSpace setVariable [PlayerSTORE_VAR, _array];
 saveProfileNamespace;
-_unit call StripPlayer;
+_unit call CMM_STRIPPLAYER;
 systemchat "Equipment and Weapons removed";
 GET_SET_GEAR_VAR = TRUE;
 };
 CMM_SETAPPEARANCE = {
-//Usage: [ammobox1,Unit123] call OzDM_fnc_ArsenalAction;
+/*
+	Author:			OzDeaDMeaT
+	Description:	Opens Arsenal Crate to allow player to change Appearance
+	Must spawn:		NO
+    Usage Example:	[ammobox1,Unit123] call CMM_SETAPPEARANCE;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_arsenal		Crate Object
+		1			OBJECT		_unit			Player Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 Private ["_unit", "_arsenal","_weapons","_magazines","_Player_UniformItems","_Player_vestItems","_Player_BackpackItems","_array"];
 _arsenal = _this select 0;
 _unit = _this select 1;
@@ -829,17 +1156,45 @@ _unit = _this select 1;
 	} Else {
 	systemChat "Please Stow your equipment before a Appearance";
 	};
+true
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //SCORE STUFF
 CMM_SETPLAYERRANK = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Sets Player Rank
+	Must spawn:		NO
+    Usage Example:	[player,"RankName"] call CMM_SETPLAYERRANK;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_player			Player Object
+		1			STRING		_rankName		Rank Name for new Player Object Rank
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private["_player","_rankName","_this"];
 _player = _this select 0;
 _rankName = _this select 1;
 diag_log format ["CMM_SETPLAYERRANK Info %1",_this ];
 _player setRank _rankName;
+true
 };
 CMM_CHECKRANK = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Shows Player Statistics 
+	Must spawn:		NO
+    Usage Example:	call CMM_SHOWMYSCORE;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private["_score","_i","_rankID","_RANKSCORE"];
 	_score = _this;
 	_rankID = 0;
@@ -850,6 +1205,18 @@ private["_score","_i","_rankID","_RANKSCORE"];
 _rankID
 };
 CMM_SHOWMYSCORE = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Shows Player Statistics 
+	Must spawn:		NO
+    Usage Example:	call CMM_SHOWMYSCORE;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private["_name","_uid","_VARname","_score","_totalScore","_historyArray","_Missions","_PreviousScore","_SuccessfulMissions","_NextRankName","_NextRankTexture","_NextRankScore","_CurrentRankID","_CurrentRankTexture","_CurrentRankSN","_CurrentRankName","_EMTNR", "_AverageXP","_PreviousRankScore","_CurrentRankBaseScore","_oldRank","_PlayerVarName","_CurrentScore","_nextRankID","_XP2NextRank","_PlayerEntity"];
 _name = name player;
 _uid = getPlayerUID player;
@@ -916,7 +1283,19 @@ hintSilent parseText format
 	//	1					2				3		4				5		6			7		8				9					10			11			12				13				14
 };
 CMM_SHOWSERVERSCORE = {
-private["_name","_array","_Missions","_SuccessRate","_DeathsPerMission","_Deaths","_MissionsSuccess","_TotalPlayers","_Perc"];
+/*
+	Author:			OzDeaDMeaT
+	Description:	Shows Server Statistics
+	Must spawn:		NO
+    Usage Example:	call CMM_SHOWSERVERSCORE;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private["_name","_array","_Missions","_SuccessRate","_DeathsPerMission","_Deaths","_MissionsSuccess","_TotalPlayers","_Perc","_CampaignStartDate","_vehicleCount","_crateCount","_objectCount"];
 _name = CAMPAIGN_NAME;
 _array = OzDM_Srv getVariable "MISSION-History";
 	if(count _array != 0) then {
@@ -963,52 +1342,131 @@ OzDM_Srv setVariable ["MISSION-History",[MISSION_HISTORY,MISSION_SUCCESS_HISTORY
 		",_name, _Missions, _MissionsSuccess, _SuccessRate, _Perc, _Deaths, _DeathsPerMission, _TotalPlayers, _vehicleCount, _crateCount, _objectCount];
 		//	1		2				3			4				5	6			7				8				9				10			11
 	} Else {Hint "Server Data Unavailable"};
+true
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //MARKER STUFF
 CMM_SERVERDEATHCOUNT = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Utilized when a player dies. Adds 1 Death and removes 1 Life
+	Must spawn:		NO
+    Usage Example:	call CMM_SERVERDEATHCOUNT;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 	if(IsServer) then {
-		CM_DEATHS = (CM_DEATHS + 1);
-		CM_LIVES = (CM_LIVES - 1);
-		_txt = format ["Mission Deaths:  %1",CM_DEATHS];
-		CM_DEATHSmkr setMarkerText _txt;
-		_txt1 = format ["Lives Remaining:  %1",CM_LIVES];
-		CM_LIVESmkr setMarkerText _txt1;
+		call CMM_ADDDEATH;
+		call CMM_REMOVELIFE;
 		diag_log format ["Death Added to Mission. Deaths = %1", CM_DEATHS];
 	};
+true
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //ADMIN STUFF
 CMM_ADDDEATH = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Adds a Death from the Current Mission Deaths
+	Must spawn:		NO
+    Usage Example:	call CMM_ADDDEATH;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private ["_txt1"];
 	if(IsServer) then {
 		CM_DEATHS = (CM_DEATHS + 1);
-		_txt = format ["Mission Deaths:  %1",CM_DEATHS];
-		CM_DEATHSmkr setMarkerText _txt;
+		_txt1 = format ["Mission Deaths:  %1",CM_DEATHS];
+		CM_DEATHSmkr setMarkerText _txt1;
 	};
+true
 };
 CMM_REMOVEDEATH = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Removes a Death from the Current Mission Deaths
+	Must spawn:		NO
+    Usage Example:	call CMM_REMOVEDEATH;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private ["_txt1"];
 	if(IsServer) then {
 		CM_DEATHS = (CM_DEATHS - 1);
-		_txt = format ["Mission Deaths:  %1",CM_DEATHS];
-		CM_DEATHSmkr setMarkerText _txt;
+		_txt1 = format ["Mission Deaths:  %1",CM_DEATHS];
+		CM_DEATHSmkr setMarkerText _txt1;
 		diag_log format ["Death Removed from Mission. Deaths = %1", CM_DEATHS];
 	};
+true
 };
 CMM_ADDLIFE = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Adds a Life from the Life Pool
+	Must spawn:		NO
+    Usage Example:	call CMM_ADDLIFE;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private ["_txt1"];
 	if(IsServer) then {
 		CM_LIVES = (CM_LIVES + 1);
 		_txt1 = format ["Lives Remaining:  %1",CM_LIVES];
 		CM_LIVESmkr setMarkerText _txt1;
 	};
+true
 };
 CMM_REMOVELIFE = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Removes a Life from the Life Pool
+	Must spawn:		NO
+    Usage Example:	call CMM_REMOVELIFE;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private ["_txt1"];
 	if(IsServer) then {
 		CM_LIVES = (CM_LIVES - 1);
 		_txt1 = format ["Lives Remaining:  %1",CM_LIVES];
 		CM_LIVESmkr setMarkerText _txt1;
 	};
+true
 };
 CMM_MOVEZEUS = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Moves Objects to location of Return Object
+	Must spawn:		NO
+    Usage Example:	player call CMM_MOVEZEUS;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0 			OBJECT		_zeusPlayer		Object
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_zeusPlayer"];
 _zeusPlayer = _this;
 	If!(IsNull _zeusPlayer) then {
@@ -1021,6 +1479,7 @@ _zeusPlayer = _this;
 	} Else {
 		systemchat "Object Not Found, nothing to move";
 	};
+true
 };		
 
 
@@ -1039,11 +1498,11 @@ private ["_veh","_vehicleC"];
 _veh = _this;
 _type = TypeOf _veh;
 _vehicleC = gettext (configFile >> "CfgVehicles" >> _type >> "vehicleClass");
-If(_vehicleC == "Ammo") then {_veh call SetupAmmoCrate};
+If(_vehicleC == "Ammo") then {_veh call CMM_ADDCRATEACTION};
 if ((_veh iskindOf "LandVehicle") || (_veh iskindOf "Air") || (_veh iskindOf "Ship") && (alive _veh)) then {If ((Count (crew _veh)) == 0) then {_veh call CMM_VEHICLEADD}};
 };
 CheckDeleted = {
 _veh = _this;
 _veh call CMM_VEHICLEREMOVE;
-_veh call CrateRemove;
+_veh call CMM_CRATEREMOVE;
 };
