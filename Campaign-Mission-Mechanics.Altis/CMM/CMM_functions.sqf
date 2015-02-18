@@ -1,6 +1,19 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //STARTUP STUFF
 CMM_PLAYER_STARTUP = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Initialization for Players in CMM enabled missions
+	Must spawn:		YES
+    Usage:			player spawn CMM_PLAYER_STARTUP;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0 			OBJECT		_player			Player Object
+    
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_player", "_PlayerUID"];
 _player = _this;
 titleText ["","BLACK IN",99999999];
@@ -76,14 +89,24 @@ if ((vehicleVarName _player) == "ZeusPlayer") then
 	sleep 10;
 	call ShowMyScore;
 	};
+true
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //TITLE STUFF
 CMM_ENTRYTITLE = {
-//Usage DAYS call CMM_TITLEDAYS
+/*
+	Author:			OzDeaDMeaT
+	Description:	Player Mission Entry Title sequence
+	Must spawn:		NO
+    Usage:			call CMM_ENTRYTITLE;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_FD","_DAYS"];
-//_FD = call FormatDate;		[_FD,"<t align='center' size='1.1'>%1</t><br/>"],
-//_DAYS = format ["%1", _this];
 #define DELAY_CHARACTER	0.25;
 #define DELAY_CURSOR	1.5;
 null = 		[[
@@ -93,11 +116,23 @@ null = 		[[
 			[CAMPAIGN_AUTHOR,"<t color='#C2B500' align='right' size='0.6'>%1</t><br/>"],
 			["                                    ","<t align='right' size='0'>%1</t>"]
 			]] spawn BIS_fnc_typeText;
+true
 };
 CMM_TITLEDAYS = {
-//Usage DAYS call CMM_TITLEDAYS
+/*
+	Author:			OzDeaDMeaT
+	Description:	Title for day number change. Shows date and Day Count
+	Must spawn:		NO
+    Usage:			call CMM_TITLEDAYS;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_FD","_DAYS"];
-_FD = call FormatDate;
+_FD = call CMM_FORMATDATE;
 _DAYS = format ["%1", _this];
 #define DELAY_CHARACTER	0.25;
 #define DELAY_CURSOR	1.5;
@@ -106,8 +141,24 @@ null = 		[[
 			["Day:","<t align='center' size='1.2'>%1</t>"],
 			[_DAYS,"<t align='center' size='1.2'>%1</t><br/>"]
 			]] spawn BIS_fnc_typeText;
+true
 };	
 CMM_MOVEMARKER = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Moves Markers around based on particular object location. (Primarily used for Zeus Objects)
+	Must spawn:		YES
+    Usage:			["STRING",OBJECT,ANY] spawn CMM_MOVEMARKER;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			STRING		_marker			Marker Name
+		1			OBJECT		_Object			Object for marker to track
+		2			ANY		_LOCAL				Sets markers as local markers only
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_marker","_Object","_Drop"];
 _marker = _this select 0;
 _Object = _this select 1;
@@ -127,7 +178,7 @@ _Drop = false;
 		If!(_pos isEqualTo _mkrPOS) then {_marker setMarkerPos _pos};
 		};
 		sleep 15;
-		If(_Drop) exitwith {};
+		If(_Drop) exitwith {true};
 	};
 	while {(_LOCAL)} do {
 		If (Isnull _Object) then 
@@ -142,10 +193,22 @@ _Drop = false;
 		If!(_pos isEqualTo _mkrPOS) then {_marker setMarkerPosLocal _pos};
 		};
 		sleep 15;
-		If(_Drop) exitwith {};
+		If(_Drop) exitwith {true};
 	};
 };
-CMM_SERVERMARKERPROCESS = { //Monitor Markers Also does Mission Startup Title
+CMM_SERVERMARKERPROCESS = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Server Marker Process for updating Active Players and Day Marker
+	Must spawn:		YES
+    Usage:			spawn CMM_SERVERMARKERPROCESS;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
 private ["_txtold","_OLDdays","_txt","_days"];
 	_txtold = "";
 
@@ -163,7 +226,7 @@ private ["_txtold","_OLDdays","_txt","_days"];
 				_txtold = _txt;
 				};
 			_days = 0;
-			_days = [CAMPAIGN_STARTDATE, date] call CountDays;
+			_days = [CAMPAIGN_STARTDATE, date] call CMM_COUNTDAYS;
 			If(_days != _OLDdays) then {
 			CAMPAIGN_DAYSmkr setMarkerText format ["Campaign Days: %1", _days];
 			[_days,"CMM_TITLEDAYS",true,false,true] call BIS_fnc_MP;
@@ -171,8 +234,26 @@ private ["_txtold","_OLDdays","_txt","_days"];
 			sleep 60;
 			};
 		};
+true
 };
-FormatDate = {
+CMM_FORMATDATE = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Moves Markers around based on particular object location. (Primarily used for Zeus Objects)
+	Must spawn:		YES
+    Usage:			[YEAR,MONTH,DAY,HOUR,MINUTE] spawn CMM_MOVEMARKER;
+	
+	Parameters:
+        Index				Type				Variable				Notes
+		0					INTEGER				_Year					Year
+		1					INTEGER				_Month					Month
+		2					INTEGER				_Day					Day
+		3					INTEGER				_Hours					Hours
+		4					INTEGER				_Minutes				Minutes
+		
+    Return:
+							STRING				_FormattedTime			Nicely formatted Text for date description
+*/
 private["_Year","_Month","_Day","_Hours","_Minutes","_MonthTxT","_DayTxT","_FormattedTime"];
 _Year = date select 0;
 _Month = date select 1;
@@ -233,20 +314,19 @@ _DayTxT = Switch (true) do {
 //hint format ["%1",_FormattedTime];
 	_FormattedTime
 };
-CountDays = {
-//scriptName "fn_dateDifference";
+CMM_COUNTDAYS = {
 /*
-    File:            fn_dateDifference.sqf
-    Author:            Heeeere's Johnny!, adapted from an idea by OzDeaDMeaT    <<< Please do not edit or remove this line. Thanks. >>>
+    Author:         Heeeere's Johnny!, adapted from an idea by OzDeaDMeaT
     Description:    Calculates the difference in days between two given dates, taking in account leap years.
-    Must spawn:        No
+    Must spawn:     No
+	Usage:			[[STARTDATE],[ENDDATE]] spawn CMM_COUNTDAYS;
     
     Parameters:
-        0 ARRAY        dateStart    start date in format [year, month, day]
-        1 ARRAY        dateEnd        end date in format [year, month, day]
+        0 ARRAY     dateStart	start date in format [year, month, day]
+        1 ARRAY     dateEnd		end date in format [year, month, day]
     
     Return:
-        INTEGER        daysTotal    difference in days between the given dates
+        INTEGER		daysTotal	difference in days between the given dates
 */
 private ["_dateStart","_dateEnd","_yearStart","_monthStart","_dayStart","_hourStart","_minStart","_yearEnd","_monthEnd","_dayEnd","_hourEnd","_minEnd","_daysTotal","_i","_isLeapYear","_daysSum","_daysOfMonths","_forEachIndex","_x"];
 _dateStart    = _this select 0;    //[2016,2,21,6,45];
@@ -300,19 +380,24 @@ _daysOfMonths    = [31, if(_isLeapYear) then {29} else {28}, 31, 30, 31, 30, 31,
 _daysTotal = _daysTotal - _dayStart + _dayEnd + _daysSum;
 _daysTotal
 };
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Curator STUFF
-setVehicleName = {
-private ["_veh","_name"];
-_veh = _this select 0;
-_name = _this select 1;
-_veh setVehicleVarName _name;
-true
-};
-GetPartDmg = {
+CMM_GETPARTDMG = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Reports Object Parts Damage in Array Format
+	Must spawn:		NO
+    Usage:			OBJECT call CMM_GETPARTDMG;
+	
+	Parameters:
+        Index				Type				Variable				Notes
+		0					OBJECT				_this					Object to collect damage information on
+		
+    Return:
+							ARRAY				_array					Array = [[PART1,DMG],[PART2,DMG]]
+*/
 private ["_objtype","_array","_hit","_hitC","_cfg","_PartN","_HitP"];
-//To use: Vehicle call GetPartDmg; >> OutPut Array Similar to [["fuel_hit",0.5],["hull_hit",0.5],["engine_hit",0.5] etc etc]
+//To use: Vehicle call CMM_GETPARTDMG; >> OutPut Array Similar to [["fuel_hit",0.5],["hull_hit",0.5],["engine_hit",0.5] etc etc]
     _objtype = typeOf _this; 
      _array = []; 
 	_hitArray = ((configFile >> "CfgVehicles" >> _objtype >> "HitPoints") call Bis_fnc_getCfgSubClasses); 
@@ -329,9 +414,22 @@ private ["_objtype","_array","_hit","_hitC","_cfg","_PartN","_HitP"];
 //Returns entire vehicles damage points and damage	
 _array 
 };
-SetPartDmg = {
+CMM_SETPARTDMG = {
+/*
+	Author:			OzDeaDMeaT
+	Description:	Sets Object Parts Damage from Array
+	Must spawn:		NO
+    Usage:			[Vehicle,[CMM_GETPARTDMGArray]] call CMM_SETPARTDMG
+	
+	Parameters:
+        Index				Type				Variable				Notes
+		0					OBJECT				_obj					Object to set damage information on
+		1					ARRAYS				_array					Array from CMM_GETPARTDMG
+		
+    Return:
+							BOOL				true					Returns true when function is complete
+*/
 private ["_obj","_array","_count","_cfg","_PartN","_HitP"];
-////To use: [Vehicle,GETPartDmgArray] call SetPartDmg; This will set all the damage back to the way it was.
      _obj = _this select 0;
 	 _array = _this select 1;
 	 _count = (count _array) - 1;
@@ -339,17 +437,35 @@ private ["_obj","_array","_count","_cfg","_PartN","_HitP"];
         //_hitP = _array select _i;
 		_obj setHitPointDamage (_array select _i);
     }; 
+true
 };
-MagCargoLoad = { 	
-//Usage = [<Object2Load>,[[MAGName],[Quantity]]] call MagCargoLoad
+CMM_MAGCARGOLOAD = { 	
+/*
+	Author:			OzDeaDMeaT
+	Description:	Sets Object Parts Damage from Array
+	Must spawn:		NO
+    Usage:			[<Object2Load>,[[MAGName],[Quantity]]] call CMM_MAGCARGOLOAD
+	
+	Parameters:
+        Index				Type				Variable				Notes
+		0					OBJECT				_crate					Object to add magazine cargo to
+		1					ARRAY										[CLASSNAME,AMOUNT]
+		
+    Return:
+							BOOL				true					Returns true when function is complete
+*/
 	private["_crate","_array","_count","_i"];
 	_crate = _this select 0; //Object ClassNames are being loaded into
 	_arr1 = (_this select 1) select 0; //ClassName
 	_arr2 = (_this select 1) select 1; //Amount
 	_count = count _arr1;
 	for "_i" from 0 to (_count - 1) do {
-		_crate addMagazineCargoGlobal [(_arr1 select _i),(_arr2 select _i)];};};
-WpnCargoLoad = {	//Usage = [<Object2Load>,[[WeaponName],[Quantity]]] call WpnCargoLoad
+		_crate addMagazineCargoGlobal [(_arr1 select _i),(_arr2 select _i)];
+	};
+true
+};
+
+CMM_WPNCARGOLOAD = {	//Usage = [<Object2Load>,[[WeaponName],[Quantity]]] call CMM_WPNCARGOLOAD
 	private["_crate","_array","_count","_i"];
 	_crate = _this select 0; //Object ClassNames are being loaded into
 	_arr1 = (_this select 1) select 0; //ClassName
@@ -358,7 +474,7 @@ WpnCargoLoad = {	//Usage = [<Object2Load>,[[WeaponName],[Quantity]]] call WpnCar
 	for "_i" from 0 to (_count - 1) do {
 		_crate addWeaponCargoGlobal [(_arr1 select _i),(_arr2 select _i)];};
 };
-ItmCargoLoad = {		//Usage = [<Object2Load>,[[ItemName],[Quantity]]] call ItmCargoLoad
+CMM_ITMCARGOLOAD = {		//Usage = [<Object2Load>,[[ItemName],[Quantity]]] call CMM_ITMCARGOLOAD
 	private["_crate","_array","_count","_i"];
 	_crate = _this select 0; //Object ClassNames are being loaded into
 	_arr1 = (_this select 1) select 0; //ClassName
@@ -367,7 +483,7 @@ ItmCargoLoad = {		//Usage = [<Object2Load>,[[ItemName],[Quantity]]] call ItmCarg
 	for "_i" from 0 to (_count - 1) do {
 		_crate addItemCargoGlobal [(_arr1 select _i),(_arr2 select _i)];};
 };
-BkPkCargoLoad = {		//Usage = [<Object2Load>,[[ItemName],[Quantity]]] call BkPkCargoLoad
+CMM_BKPCARGOLOAD = {		//Usage = [<Object2Load>,[[ItemName],[Quantity]]] call CMM_BKPCARGOLOAD
 	private["_crate","_array","_count","_i"];
 	_crate = _this select 0; //Object ClassNames are being loaded into
 	_arr1 = (_this select 1) select 0; //ClassName
@@ -376,7 +492,7 @@ BkPkCargoLoad = {		//Usage = [<Object2Load>,[[ItemName],[Quantity]]] call BkPkCa
 	for "_i" from 0 to (_count - 1) do {
 		_crate addBackpackCargoGlobal [(_arr1 select _i),(_arr2 select _i)];};
 };
-VehicleAdd = {
+CMM_VEHICLEADD = {
 private ["_this","_check","_TMPname"];
 _TMPname = format ["MISSIONVEHICLE_%1",VEHICLE_COUNT];
 missionNamespace setVariable [_TMPname,_this];
@@ -388,7 +504,7 @@ if ((RESTORED_VEHICLE find (_this)) == -1) then {
 } Else {_check = false};
 _check
 };
-ObjectAdd = {
+CMM_OBJECTADD = {
 private ["_this","_check","_TMPname"];
 _TMPname = format ["MISSIONOBJ_%1",OBJECT_COUNT];
 missionNamespace setVariable [_TMPname,_this];
@@ -400,18 +516,18 @@ if ((RESTORED_OBJ find (_this)) == -1) then {
 } Else {_check = false};
 _check
 };
-VehicleRemove = {
-//Usage Vehicle call VehicleRemove
+CMM_VEHICLEREMOVE = {
+//Usage Vehicle call CMM_VEHICLEREMOVE
 RESTORED_VEHICLE = RESTORED_VEHICLE - [_this];
 true
 };
-ObjectRemove = {
-//Usage Vehicle call VehicleRemove
+CMM_OBJECTREMOVE = {
+//Usage Vehicle call CMM_VEHICLEREMOVE
 RESTORED_OBJ = RESTORED_OBJ - [_this];
 true
 };
-MrkAdd = {
-//Usage Vehicle call VehicleAdd
+CMM_MARKERADD = {
+//Usage Vehicle call CMM_VEHICLEADD
 private ["_this","_check"];
 if ((RESTORED_MARKERS find (_this)) == -1) then {
 	RESTORED_MARKERS = RESTORED_MARKERS + [_this];
@@ -420,12 +536,12 @@ if ((RESTORED_MARKERS find (_this)) == -1) then {
 } Else {_check = false};
 _check
 };
-MrkRemove = {
-//Usage Vehicle call VehicleRemove
+CMM_MARKERREMOVE = {
+//Usage Vehicle call CMM_VEHICLEREMOVE
 RESTORED_MARKERS = RESTORED_MARKERS - [_this];
 true
 };
-RemoveDup = {
+CMM_DEDUPARRAY = {
     private ["_array", "_unduplicated", "_original","_exists"];
     _array = _this;
     _unduplicated = [];
@@ -469,24 +585,24 @@ _veh = _this;
 _type = TypeOf _veh;
 _vehicleC = gettext (configFile >> "CfgVehicles" >> _type >> "vehicleClass");
 If(_vehicleC == "Ammo") then {_veh call SetupAmmoCrate};
-if ((_veh iskindOf "LandVehicle") || (_veh iskindOf "Air") || (_veh iskindOf "Ship") && (alive _veh)) then {If ((Count (crew _veh)) == 0) then {_veh call VehicleAdd}};
+if ((_veh iskindOf "LandVehicle") || (_veh iskindOf "Air") || (_veh iskindOf "Ship") && (alive _veh)) then {If ((Count (crew _veh)) == 0) then {_veh call CMM_VEHICLEADD}};
 };
 CheckDeleted = {
 _veh = _this;
-_veh call VehicleRemove;
+_veh call CMM_VEHICLEREMOVE;
 _veh call CrateRemove;
 };
 CuratorMarkerCheckPlaced = {
 private ["_mkr","_this"];
 _mkr = _this select 1;
-[_mkr,"MrkAdd",false,false,false] call BIS_fnc_MP;
+[_mkr,"CMM_MARKERADD",false,false,false] call BIS_fnc_MP;
 //hint format ["%1", _check];
 //diag_log format ["%1", _check];
 };
 CuratorMarkerCheckDeleted = {
 private ["_mkr","_this"];
 _mkr = _this select 1;
-[_mkr,"MrkRemove",false,false,false] call BIS_fnc_MP;
+[_mkr,"CMM_MARKERREMOVE",false,false,false] call BIS_fnc_MP;
 };
 CuratorObjectCheckPlaced = {
 private ["_veh","_vehicleC","_type","_DN"];
@@ -499,11 +615,11 @@ _DN = gettext (configFile >> "CfgVehicles" >> _type >> "displayName");
 if ((_veh iskindOf "LandVehicle") || (_veh iskindOf "Air") || (_veh iskindOf "Ship") && (alive _veh)) then {
 	_veh setVariable ["AGM_Logistics_loadedItems",[], true];
 	If ((Count (crew _veh)) == 0) then {
-		[_veh,"VehicleAdd",false,false,false] call BIS_fnc_MP;
+		[_veh,"CMM_VEHICLEADD",false,false,false] call BIS_fnc_MP;
 		//diag_log format ["%1 Vehicle Added",_veh];
 	};
 };  
-If(_vehicleC == "AGM_Repair_Items") then {[_veh,"ObjectAdd",false,false,false] call BIS_fnc_MP};
+If(_vehicleC == "AGM_Repair_Items") then {[_veh,"CMM_OBJECTADD",false,false,false] call BIS_fnc_MP};
 If(_vehicleC == "Ammo") then {[_veh,"CrateAdd",false,false,false] call BIS_fnc_MP; [_veh,"SetupAmmoCrate",true,false,true] call BIS_fnc_MP};
 If (_type In NOTALLOWED) then {deleteVehicle _veh; SystemChat format ["Placement of '%1' is NOT allowed in this mission",_DN]};
 If (_type == "ModuleEndMission_F") then {deleteVehicle _veh; SystemChat "Use Radio Buttons to End Mission"};
@@ -513,14 +629,14 @@ _veh = _this select 1;
 _type = TypeOf _veh;
 _vehicleC = gettext (configFile >> "CfgVehicles" >> _type >> "vehicleClass");
 if ((_veh iskindOf "LandVehicle") || (_veh iskindOf "Air") || (_veh iskindOf "Ship")) then {
-	[_veh,"VehicleRemove",false,false,false] call BIS_fnc_MP;
+	[_veh,"CMM_VEHICLEREMOVE",false,false,false] call BIS_fnc_MP;
 	//diag_log format ["%1 Vehicle Removed",_veh];
 };
 If(_vehicleC == "Ammo") then {[_veh,"CrateRemove",false,false,false] call BIS_fnc_MP};
 };
 
 CrateAdd = {
-//Usage Vehicle call VehicleAdd
+//Usage Vehicle call CMM_VEHICLEADD
 private ["_this","_check","_TMPname"];
 _TMPname = format ["MISSIONCRATE_%1", CRATE_COUNT];
 missionNamespace setVariable [_TMPname,_this];
@@ -534,7 +650,7 @@ if ((RESTORED_CRATE find (_this)) == -1) then {
 _check
 };
 CrateRemove = {
-//Usage Vehicle call VehicleRemove
+//Usage Vehicle call CMM_VEHICLEREMOVE
 RESTORED_CRATE = RESTORED_CRATE - [_this];
 OzDM_Srv setVariable ["RESTORED_CRATE", RESTORED_CRATE, true];
 true
@@ -919,3 +1035,15 @@ _zeusPlayer = _this;
 		systemchat "Object Not Found, nothing to move";
 	};
 };		
+
+
+
+//REMOVE
+/*
+setVehicleName = {
+private ["_veh","_name"];
+_veh = _this select 0;
+_name = _this select 1;
+_veh setVehicleVarName _name;
+true
+};

@@ -274,7 +274,7 @@ if !(isServer) exitWith {};
 				_name = format ["%1_%2",VehicleSaveName,_i];
 				_pos = getPosASL _veh;
 				_dir = [vectorDir _veh, vectorUP _veh];
-				_PartDmg = _veh call GetPartDmg;
+				_PartDmg = _veh call CMM_GETPARTDMG;
 				_data = [typeOf _veh, getPosASL _veh, _dir, damage _veh, fuel _veh];
 				_cargoWeapons = GetWeaponCargo _veh;
 				_cargoItems = GetItemCargo _veh;
@@ -361,13 +361,13 @@ If !(VehicleDBName call iniDB_exists) Then {
 			};
 			_veh setPosASL _pos;
 			_veh setdamage _dmg;
-			[[_veh,_HitDmg],"SetPartDmg",true,false,false] call BIS_fnc_MP;  //[_veh,_PartData] call SetPartDmg
+			[[_veh,_HitDmg],"CMM_SETPARTDMG",true,false,false] call BIS_fnc_MP;  //[_veh,_PartData] call CMM_SETPARTDMG
 			//diag_log format ["Damage Data for Vehicle %1 = %2", _veh, _HitDmg];
 			if ((_class == "Autonomous") && (_faction == CAMPAIGN_FACTION)) then {createVehicleCrew _veh};
-			if((count _MagCargo)  > 0) then {[_veh,_MagCargo] call MagCargoLoad};
-			if((count _ItemCargo) > 0) then {[_veh,_ItemCargo] call ItmCargoLoad};
-			if((count _BkPkCargo) > 0) then {[_veh,_BkPkCargo] call BkPkCargoLoad};
-			if((count _WpnCargo)  > 0) then {[_veh,_WpnCargo] call WpnCargoLoad};
+			if((count _MagCargo)  > 0) then {[_veh,_MagCargo] call CMM_MAGCARGOLOAD};
+			if((count _ItemCargo) > 0) then {[_veh,_ItemCargo] call CMM_ITMCARGOLOAD};
+			if((count _BkPkCargo) > 0) then {[_veh,_BkPkCargo] call CMM_BKPCARGOLOAD};
+			if((count _WpnCargo)  > 0) then {[_veh,_WpnCargo] call CMM_WPNCARGOLOAD};
 			RESTORED_VEHICLE = RESTORED_VEHICLE + [_veh];
 			CURATOR_OBJ addCuratorEditableObjects [[_veh],false];
 			};
@@ -446,10 +446,10 @@ If !(CrateDBName call iniDB_exists) Then {
 			clearWeaponCargoGlobal _crate;
 			clearMagazineCargoGlobal _crate;
 			clearBackpackCargoGlobal _crate;
-			if((count _MagCargo)  > 0) then {[_crate,_MagCargo] call MagCargoLoad};
-			if((count _ItemCargo) > 0) then {[_crate,_ItemCargo] call ItmCargoLoad};
-			if((count _BkPkCargo) > 0) then {[_crate,_BkPkCargo] call BkPkCargoLoad};
-			if((count _WpnCargo)  > 0) then {[_crate,_WpnCargo] call WpnCargoLoad};
+			if((count _MagCargo)  > 0) then {[_crate,_MagCargo] call CMM_MAGCARGOLOAD};
+			if((count _ItemCargo) > 0) then {[_crate,_ItemCargo] call CMM_ITMCARGOLOAD};
+			if((count _BkPkCargo) > 0) then {[_crate,_BkPkCargo] call CMM_BKPCARGOLOAD};
+			if((count _WpnCargo)  > 0) then {[_crate,_WpnCargo] call CMM_WPNCARGOLOAD};
 			RESTORED_CRATE = RESTORED_CRATE + [_crate];
 			CURATOR_OBJ addCuratorEditableObjects [[_crate],false];
 			};
