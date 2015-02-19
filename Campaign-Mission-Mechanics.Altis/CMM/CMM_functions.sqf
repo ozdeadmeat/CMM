@@ -2,6 +2,7 @@
 //STARTUP STUFF
 CMM_PLAYER_STARTUP = {
 /*
+	Name:			CMM_PLAYER_STARTUP
 	Author:			OzDeaDMeaT
 	Description:	Initialization for Players in CMM enabled missions
 	Must spawn:		YES
@@ -95,6 +96,7 @@ true
 //TITLE STUFF
 CMM_ENTRYTITLE = {
 /*
+	Name:			CMM_ENTRYTITLE
 	Author:			OzDeaDMeaT
 	Description:	Player Mission Entry Title sequence
 	Must spawn:		NO
@@ -118,8 +120,10 @@ null = 		[[
 			]] spawn BIS_fnc_typeText;
 true
 };
+
 CMM_TITLEDAYS = {
 /*
+	Name:			CMM_TITLEDAYS
 	Author:			OzDeaDMeaT
 	Description:	Title for day number change. Shows date and Day Count
 	Must spawn:		NO
@@ -145,6 +149,7 @@ true
 };	
 CMM_MOVEMARKER = {
 /*
+	Name:			CMM_MOVEMARKER
 	Author:			OzDeaDMeaT
 	Description:	Moves Markers around based on particular object location. (Primarily used for Zeus Objects)
 	Must spawn:		YES
@@ -198,6 +203,7 @@ _Drop = false;
 };
 CMM_SERVERMARKERPROCESS = {
 /*
+	Name:			CMM_SERVERMARKERPROCESS
 	Author:			OzDeaDMeaT
 	Description:	Server Marker Process for updating Active Players and Day Marker
 	Must spawn:		YES
@@ -238,6 +244,7 @@ true
 };
 CMM_FORMATDATE = {
 /*
+	Name:			CMM_FORMATDATE
 	Author:			OzDeaDMeaT
 	Description:	Moves Markers around based on particular object location. (Primarily used for Zeus Objects)
 	Must spawn:		YES
@@ -316,6 +323,7 @@ _DayTxT = Switch (true) do {
 };
 CMM_COUNTDAYS = {
 /*
+	Name:			CMM_COUNTDAYS
     Author:         Heeeere's Johnny!, adapted from an idea by OzDeaDMeaT
     Description:    Calculates the difference in days between two given dates, taking in account leap years.
     Must spawn:     No
@@ -384,6 +392,7 @@ _daysTotal
 //Curator STUFF
 CMM_GETPARTDMG = {
 /*
+	Name:			CMM_GETPARTDMG
 	Author:			OzDeaDMeaT
 	Description:	Reports Object Parts Damage in Array Format
 	Must spawn:		NO
@@ -416,6 +425,7 @@ _array
 };
 CMM_SETPARTDMG = {
 /*
+	Name:			CMM_SETPARTDMG
 	Author:			OzDeaDMeaT
 	Description:	Sets Object Parts Damage from Array
 	Must spawn:		NO
@@ -441,6 +451,7 @@ true
 };
 CMM_MAGCARGOLOAD = { 	
 /*
+	Name:			CMM_MAGCARGOLOAD
 	Author:			OzDeaDMeaT
 	Description:	Loads magazines into crates or Vehicles
 	Must spawn:		NO
@@ -466,6 +477,7 @@ true
 };
 CMM_WPNCARGOLOAD = {
 /*
+	Name:			CMM_WPNCARGOLOAD
 	Author:			OzDeaDMeaT
 	Description:	Sets weapon cargo from array
 	Must spawn:		NO
@@ -489,6 +501,7 @@ private["_crate","_arr1","_arr2","_count","_i"];
 };
 CMM_ITMCARGOLOAD = {
 /*
+	Name:			CMM_ITMCARGOLOAD
 	Author:			OzDeaDMeaT
 	Description:	Sets item cargo from array
 	Must spawn:		NO
@@ -512,6 +525,7 @@ private["_crate","_arr1","_arr2","_count","_i"];
 };
 CMM_BKPCARGOLOAD = {
 /*
+	Name:			CMM_BKPCARGOLOAD
 	Author:			OzDeaDMeaT
 	Description:	Sets Backpack cargo from array
 	Must spawn:		NO
@@ -535,6 +549,7 @@ private["_crate","_arr1","_arr2","_count","_i"];
 };
 CMM_VEHICLEADD = {
 /*
+	Name:			CMM_VEHICLEADD
 	Author:			OzDeaDMeaT
 	Description:	Adds vehicle to Vehicle backup array
 	Must spawn:		NO
@@ -560,6 +575,7 @@ _check
 };
 CMM_OBJECTADD = {
 /*
+	Name:			CMM_OBJECTADD
 	Author:			OzDeaDMeaT
 	Description:	Adds object to Object backup array
 	Must spawn:		NO
@@ -585,6 +601,7 @@ _check
 };
 CMM_VEHICLEREMOVE = {
 /*
+	Name:			CMM_VEHICLEREMOVE
 	Author:			OzDeaDMeaT
 	Description:	Removes vehicle from backup array
 	Must spawn:		NO
@@ -602,6 +619,7 @@ true
 };
 CMM_OBJECTREMOVE = {
 /*
+	Name:			CMM_OBJECTREMOVE
 	Author:			OzDeaDMeaT
 	Description:	Removes Object from backup array
 	Must spawn:		NO
@@ -619,6 +637,7 @@ true
 };
 CMM_MARKERADD = {
 /*
+	Name:			CMM_MARKERADD
 	Author:			OzDeaDMeaT
 	Description:	Adds Markers to backup markers backup array
 	Must spawn:		NO
@@ -641,6 +660,7 @@ _check
 };
 CMM_MARKERREMOVE = {
 /*
+	Name:			CMM_MARKERREMOVE
 	Author:			OzDeaDMeaT
 	Description:	Removes Markers from backup markers array
 	Must spawn:		NO
@@ -658,6 +678,7 @@ true
 };
 CMM_DEDUPARRAY = {
 /*
+	Name:			CMM_DEDUPARRAY
 	Author:			OzDeaDMeaT
 	Description:	Removes duplicate entries in array
 	Must spawn:		NO
@@ -682,6 +703,7 @@ _unduplicated
 };  
 CMM_GETCFGVEHICLE = {
 /*
+	Name:			CMM_GETCFGVEHICLE
 	Author:			OzDeaDMeaT
 	Description:	Adds Zeus Curator marker object to Backup DB
 	Must spawn:		NO
@@ -722,6 +744,7 @@ _output
 };
 CMM_CURATORMARKERPLACED = {
 /*
+	Name:			CMM_CURATORMARKERPLACED
 	Author:			OzDeaDMeaT
 	Description:	Adds Zeus Curator marker object to Backup DB
 	Must spawn:		NO
@@ -743,6 +766,7 @@ true
 };
 CMM_CURATORMARKERREMOVE = {
 /*
+	Name:			CMM_CURATORMARKERREMOVE
 	Author:			OzDeaDMeaT
 	Description:	Zeus Curator marker removed, removes marker from Backup DB
 	Must spawn:		NO
@@ -762,6 +786,7 @@ true
 };
 CMM_CURATOROBJECTPLACED = {
 /*
+	Name:			CMM_CURATOROBJECTPLACED
 	Author:			OzDeaDMeaT
 	Description:	Zeus Curator object removed removes object from Backup DB
 	Must spawn:		NO
@@ -796,6 +821,7 @@ true
 };
 CMM_CURATOROBJECTREMOVE = {
 /*
+	Name:			CMM_CURATOROBJECTREMOVE
 	Author:			OzDeaDMeaT
 	Description:	Zeus Curator object removed removes object from Backup DB
 	Must spawn:		NO
@@ -819,9 +845,9 @@ if ((_veh iskindOf "LandVehicle") || (_veh iskindOf "Air") || (_veh iskindOf "Sh
 If(_vehicleC == "Ammo") then {[_veh,"CMM_CRATEREMOVE",false,false,false] call BIS_fnc_MP};
 true
 };
-
 CMM_CRATEADD = {
 /*
+	Name:			CMM_CRATEADD
 	Author:			OzDeaDMeaT
 	Description:	Removes crate from backup array
 	Must spawn:		NO
@@ -848,6 +874,7 @@ _check
 };
 CMM_CRATEREMOVE = {
 /*
+	Name:			CMM_CRATEREMOVE
 	Author:			OzDeaDMeaT
 	Description:	Removes crate from backup array
 	Must spawn:		NO
@@ -866,6 +893,7 @@ true
 };
 CMM_JIP_ADDCRATEACTION = {
 /*
+	Name:			CMM_JIP_ADDCRATEACTION
 	Author:			OzDeaDMeaT
 	Description:	Adds Actions to Crates for players Joining in Progress
 	Must spawn:		NO
@@ -887,6 +915,7 @@ systemChat "AmmoCrates Initialized";
 };
 CMM_ADDCRATEACTION = {
 /*
+	Name:			CMM_ADDCRATEACTION
 	Author:			OzDeaDMeaT
 	Description:	Adds Actions to Crate
 	Must spawn:		NO
@@ -913,6 +942,7 @@ true
 //PLAYER STUFF
 CMM_PLAYERGEARARRAY = {
 /*
+	Name:			CMM_PLAYERGEARARRAY
 	Author:			OzDeaDMeaT
 	Description:	Formats array of current players loadout
 	Must spawn:		NO
@@ -955,6 +985,7 @@ _output
 };
 CMM_STRIPPLAYER = {
 /*
+	Name:			CMM_STRIPPLAYER
 	Author:			OzDeaDMeaT
 	Description:	Removes weapons and items from player leaving Assigned Items (excludes Assigned Item weapons - e.g. Binoculars)
 	Must spawn:		NO
@@ -976,9 +1007,10 @@ removeAllWeapons _player;
 };
 CMM_RETURNEQUIPMENT = {
 /*
+	Name:			CMM_RETURNEQUIPMENT
 	Author:			OzDeaDMeaT
 	Description:	This Function dumps all inventory of a player including weapons (This includes binoculars Item Slot)
-	Must spawn:		NO
+	Must spawn:		YES
     Usage Example:	[ammobox1,Unit123] call CMM_RETURNEQUIPMENT;
 	
 	Parameters:
@@ -989,7 +1021,8 @@ CMM_RETURNEQUIPMENT = {
     Return:
 					BOOL		true			Returns true when function is complete
 */
-private ["_crate","_player"];
+private ["_crate","_player","_item","_mags","_weapons","_WeapARR","_weapon","_WeapSilencer",
+"_WeapLight","_WeapScope","_BaseWeapon","_Mag1","_Mag2","_i","_j","_k","_txt"];
 _crate = _this select 0;
 _player = _this select 1;
 	_mags = magazines _player;
@@ -1006,7 +1039,6 @@ _player = _this select 1;
 		_Mag2 = If((count _WeapARR) > 5) then {_WeapARR select 5} Else {[""]};
 		If((count _Mag1) > 1) then {_crate addMagazineCargoGlobal [(_Mag1 select 0),1]};
 		If((count _Mag2) > 1) then {_crate addMagazineCargoGlobal [(_Mag2 select 0),1]};
-		
 		//Selected Weapon and Items
 		_crate addWeaponCargoGlobal [_BaseWeapon,1];
 		If!(_WeapSilencer == "") then {_crate addItemCargoGlobal [_WeapSilencer,1]};
@@ -1016,29 +1048,36 @@ _player = _this select 1;
 	removeAllWeapons _player;
 	//Magazine Crate load
 	_mags = magazines _player;
+	for "_j" from 0 to ((count _mags) - 1) do
 	{
-		_crate addMagazineCargoGlobal [_x,1];
-		sleep 0.5;
-		hint format ["%1",_x];
-	} foreach _mags;
+		_mag = _mags select _i;
+		_crate addMagazineCargoGlobal [_mag,1];
+		sleep 1;
+		hint format ["Magainze Loop\nAdded %1\nLoopCount = %2",_mag, _j];
+		_player removeMagazine _mag;
+	};
 	//{_player removeMagazine _x} foreach _mags;
 	
 	_inventory = ((backpackCargo _player) + (uniformitems _player) + (vestItems _player));
-	{
-	_txt = getText (configfile >> "CfgWeapons" >> _x >> "tf_parent");
-	If(_txt != "") then {
-		_crate addItemCargoGlobal [_txt,1];
-		_player removeItem _x;
-	} Else {
-		_crate addItemCargoGlobal [_x,1];
-		_player removeItem _x;
+	for "_k" from 0 to ((count _inventory) -1) do {
+		_item = _inventory select _k;
+		_txt = getText (configfile >> "CfgWeapons" >> _item >> "tf_parent");
+		If(_txt != "") then {
+			_crate addItemCargoGlobal [_txt,1];
+			_player removeItem _item;
+			hint format ["Item Loop\nAdded %1\nLoopCount = %2",_txt, _k];
+		} Else {
+			_crate addItemCargoGlobal [_item,1];
+			_player removeItem _item;
+			hint format ["Item Loop\nAdded %1\nLoopCount = %2",_item, _k];
+		};
+	sleep 1;
 	};
-		
-	} foreach _inventory;
 true
 };
 CMM_GETGEAR = {
 /*
+	Name:			CMM_GETGEAR
 	Author:			OzDeaDMeaT
 	Description:	Retrieves loadout from  profileNameSpace
 	Must spawn:		NO
@@ -1103,6 +1142,7 @@ true
 };
 CMM_SETGEAR = {
 /*
+	Name:			CMM_SETGEAR
 	Author:			OzDeaDMeaT
 	Description:	Saves loadout to profileNameSpace
 	Must spawn:		NO
@@ -1128,6 +1168,7 @@ GET_SET_GEAR_VAR = TRUE;
 };
 CMM_SETAPPEARANCE = {
 /*
+	Name:			CMM_SETAPPEARANCE
 	Author:			OzDeaDMeaT
 	Description:	Opens Arsenal Crate to allow player to change Appearance
 	Must spawn:		NO
@@ -1161,6 +1202,7 @@ true
 //SCORE STUFF
 CMM_SETPLAYERRANK = {
 /*
+	Name:			CMM_SETPLAYERRANK
 	Author:			OzDeaDMeaT
 	Description:	Sets Player Rank
 	Must spawn:		NO
@@ -1183,6 +1225,7 @@ true
 };
 CMM_CHECKRANK = {
 /*
+	Name:			CMM_CHECKRANK
 	Author:			OzDeaDMeaT
 	Description:	Shows Player Statistics 
 	Must spawn:		NO
@@ -1205,6 +1248,7 @@ _rankID
 };
 CMM_SHOWMYSCORE = {
 /*
+	Name:			CMM_SHOWMYSCORE
 	Author:			OzDeaDMeaT
 	Description:	Shows Player Statistics 
 	Must spawn:		NO
@@ -1283,6 +1327,7 @@ hintSilent parseText format
 };
 CMM_SHOWSERVERSCORE = {
 /*
+	Name:			CMM_SHOWSERVERSCORE
 	Author:			OzDeaDMeaT
 	Description:	Shows Server Statistics
 	Must spawn:		NO
@@ -1347,6 +1392,7 @@ true
 //MARKER STUFF
 CMM_SERVERDEATHCOUNT = {
 /*
+	Name:			CMM_SERVERDEATHCOUNT
 	Author:			OzDeaDMeaT
 	Description:	Utilized when a player dies. Adds 1 Death and removes 1 Life
 	Must spawn:		NO
@@ -1369,6 +1415,7 @@ true
 //ADMIN STUFF
 CMM_ADDDEATH = {
 /*
+	Name:			CMM_ADDDEATH
 	Author:			OzDeaDMeaT
 	Description:	Adds a Death from the Current Mission Deaths
 	Must spawn:		NO
@@ -1390,6 +1437,7 @@ true
 };
 CMM_REMOVEDEATH = {
 /*
+	Name:			CMM_REMOVEDEATH
 	Author:			OzDeaDMeaT
 	Description:	Removes a Death from the Current Mission Deaths
 	Must spawn:		NO
@@ -1412,6 +1460,7 @@ true
 };
 CMM_ADDLIFE = {
 /*
+	Name:			CMM_ADDLIFE
 	Author:			OzDeaDMeaT
 	Description:	Adds a Life from the Life Pool
 	Must spawn:		NO
@@ -1433,6 +1482,7 @@ true
 };
 CMM_REMOVELIFE = {
 /*
+	Name:			CMM_REMOVELIFE
 	Author:			OzDeaDMeaT
 	Description:	Removes a Life from the Life Pool
 	Must spawn:		NO
@@ -1454,6 +1504,7 @@ true
 };
 CMM_MOVEZEUS = {
 /*
+	Name:			CMM_MOVEZEUS
 	Author:			OzDeaDMeaT
 	Description:	Moves Objects to location of Return Object
 	Must spawn:		NO
