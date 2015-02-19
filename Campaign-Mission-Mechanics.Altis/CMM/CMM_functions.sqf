@@ -931,9 +931,10 @@ CMM_ADDCRATEACTION = {
 private ["_crate","_type"];
 _crate = _this;
 _type = typeOf _crate;
+_crate addAction ["<t color='#889C1C'>Grab Equipment</t>", "_this call CMM_GETGEAR",[],0,false,true,"","((_target distance _this < 3.5) && (GET_SET_GEAR_VAR))"];
+_crate addAction ["<t color='#9E5757'>Stow Equipment</t>", "_this call CMM_SETGEAR",[],0,false,true,"","((_target distance _this < 3.5) && !(GET_SET_GEAR_VAR))"];
+_crate addAction ["<t color='#D12130'>Drop Equipment</t>", "_this call CMM_RETURNEQUIPMENT",[],0,false,true,"","(_target distance _this < 3.5)"];
 	If(_type In ACTIONcrates) then {
-		_crate addAction ["<t color='#889C1C'>Grab Equipment</t>", "_this call CMM_GETGEAR",[],0,false,true,"","((_target distance _this < 3) && (GET_SET_GEAR_VAR))"]; 
-		_crate addAction ["<t color='#9E5757'>Stow Equipment</t>", "_this call CMM_SETGEAR",[],0,false,true,"","((_target distance _this < 3) && !(GET_SET_GEAR_VAR))"]; 
 		_crate addAction ["<t color='#5E6FCC'>Set Appearance</t>", "_this call CMM_SETAPPEARANCE",[],0,false,true,"","(_target distance _this < 5)"];
 	};			//VirtualAmmoBox_1 call CMM_ADDCRATEACTION			hint format ["%1", GET_SET_GEAR_VAR] 		hint format ["%1", typeof cursorTarget]		Box_FIA_Support_F
 true
@@ -1011,7 +1012,7 @@ CMM_RETURNEQUIPMENT = {
 	Author:			OzDeaDMeaT
 	Description:	This Function dumps all inventory of a player including weapons (This includes binoculars Item Slot)
 	Must spawn:		YES
-    Usage Example:	[ammobox1,Unit123] call CMM_RETURNEQUIPMENT;
+    Usage Example:	[ammobox1,Unit123] spawn CMM_RETURNEQUIPMENT;
 	
 	Parameters:
         Index		Type		Variable		Notes
@@ -1045,19 +1046,16 @@ _player = _this select 1;
 		If!(_WeapLight == "") then {_crate addItemCargoGlobal [_WeapLight,1]};
 		If!(_WeapScope == "") then {_crate addItemCargoGlobal [_WeapScope,1]};
 	};
-	removeAllWeapons _player;
 	//Magazine Crate load
 	_mags = magazines _player;
 	for "_j" from 0 to ((count _mags) - 1) do
 	{
-		_mag = _mags select _i;
+		_mag = _mags select _j;
 		_crate addMagazineCargoGlobal [_mag,1];
-		sleep 1;
-		hint format ["Magainze Loop\nAdded %1\nLoopCount = %2",_mag, _j];
+		//hint format ["Magainze Loop\nAdded %1\nLoopCount = %2",_mag, _j];
 		_player removeMagazine _mag;
 	};
 	//{_player removeMagazine _x} foreach _mags;
-	
 	_inventory = ((backpackCargo _player) + (uniformitems _player) + (vestItems _player));
 	for "_k" from 0 to ((count _inventory) -1) do {
 		_item = _inventory select _k;
@@ -1065,14 +1063,14 @@ _player = _this select 1;
 		If(_txt != "") then {
 			_crate addItemCargoGlobal [_txt,1];
 			_player removeItem _item;
-			hint format ["Item Loop\nAdded %1\nLoopCount = %2",_txt, _k];
+			//hint format ["Item Loop\nAdded %1\nLoopCount = %2",_txt, _k];
 		} Else {
 			_crate addItemCargoGlobal [_item,1];
 			_player removeItem _item;
-			hint format ["Item Loop\nAdded %1\nLoopCount = %2",_item, _k];
+			//hint format ["Item Loop\nAdded %1\nLoopCount = %2",_item, _k];
 		};
-	sleep 1;
 	};
+removeAllWeapons _player;
 true
 };
 CMM_GETGEAR = {
