@@ -4,9 +4,9 @@
 
 //This section collects the players uniform, Glasses and Headgear and removes it from the corps. The stripped body shows players that the dead player has respawned.
 
-/*
 _newUnit = _this select 0;
 _oldUnit = _this select 1;
+/*
 //This removes all player respawned equipment
 removeAllWeapons _newUnit; 
 removeGoggles _newUnit; 
@@ -29,7 +29,7 @@ if (_oldUniform != "") then {_newUnit addUniform _oldUniform};
 if (_oldvest != "") then {_newUnit addVest _oldvest};
 if (_oldBackPack != "") then {_newUnit addBackpack _oldBackPack};
 
-
+*/
 
 _newUnit linkItem "ItemMap";
 _newUnit linkItem "ItemRadio";
