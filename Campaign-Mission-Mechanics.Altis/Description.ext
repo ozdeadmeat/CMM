@@ -5,7 +5,7 @@ onLoadMission = www.clan-botm.com;
 onLoadIntroTime=false;
 onLoadMissionTime=True;
 #include "ATLAS\description.ext"
-
+#include "CHVD\dialog.hpp"
 ///////////////////////////////////////////////////////////////////////////////////Mission Parameter Stuff
 //In Game Stuff
 briefing=0;
@@ -30,8 +30,22 @@ class Header
 	maxPlayers = 25; //max # of players the mission supports
 };
 
-//INSERT TRAINING PARAM - INJECT PARAM into SAVE and LOAD functions for DB
+class RscTitles 
+{
+	#include "ATLAS\rSquadManagement\gui\notification.hpp"
+};
 
+class CfgFunctions
+{
+	#include "CHVD\CfgFunctions.hpp"
+	class ATLAS 
+	{		
+		#include "ATLAS\rSquadManagement\cfgFunctions.hpp"
+	};
+};
+
+
+//INSERT TRAINING PARAM - INJECT PARAM into SAVE and LOAD functions for DB
 class CfgDebriefing
 {  
 	class End1

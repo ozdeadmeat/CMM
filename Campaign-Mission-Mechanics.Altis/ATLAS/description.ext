@@ -7,18 +7,7 @@
 //Squad Management
 #include "rSquadManagement\gui\squadGUI.hpp"
 
-class RscTitles 
-{
-	#include "rSquadManagement\gui\notification.hpp"
-};
 
-class CfgFunctions
-{
-	class ATLAS 
-	{		
-		#include "rSquadManagement\cfgFunctions.hpp"
-	};
-};
 
 
 

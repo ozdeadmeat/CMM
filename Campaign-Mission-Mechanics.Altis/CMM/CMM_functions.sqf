@@ -15,7 +15,7 @@ CMM_PLAYER_STARTUP = {
     Return:
 					BOOL		true			Returns true when function is complete
 */
-private ["_player", "_PlayerUID"];
+private ["_player", "_PlayerUID","_SWRadio","_LRRadio"];
 _player = _this;
 titleText ["","BLACK IN",99999999];
 enableSentences false;
@@ -45,6 +45,7 @@ if ((vehicleVarName _player) == "ZeusPlayer") then
 			//Starts Marker Stuff on Server
 			["RETURN_MKR",return,"LOCAL"] spawn CMM_MOVEMARKER;
 			"RETURN_MKR" setMarkerAlphaLocal 1;
+			_player spawn CMM_ZEUSLOADOUT;
 			sleep 3;
 		};
 	}
@@ -77,9 +78,6 @@ sleep 5;
 };
 if ((vehicleVarName _player) == "ZeusPlayer") then 
 	{
-	ZeusPlayer linkItem "ItemMap";
-	ZeusPlayer linkItem "ItemWatch";
-	ZeusPlayer linkItem "ItemRadio";
 	titleText ["","BLACK IN",3];
 	sleep 2.5;
 	call CMM_ENTRYTITLE;
@@ -120,7 +118,6 @@ null = 		[[
 			]] spawn BIS_fnc_typeText;
 true
 };
-
 CMM_TITLEDAYS = {
 /*
 	Name:			CMM_TITLEDAYS
@@ -217,11 +214,13 @@ CMM_SERVERMARKERPROCESS = {
 */
 private ["_txtold","_OLDdays","_txt","_days"];
 	_txtold = "";
-
 	CM_ACTIVEPLAYERS = count playableUnits;
 	_txt = format ["Active Soldiers:  %1",CM_ACTIVEPLAYERS];
 	CM_ACTIVEPLAYERSmkr setMarkerText _txt;
-	sleep 120;
+	sleep 10;
+	_days = [CAMPAIGN_STARTDATE, date] call CMM_COUNTDAYS;
+	CAMPAIGN_DAYSmkr setMarkerText format ["Campaign Days: %1", _days];
+	sleep 110;
 	_OLDdays = 0;
 	while {true} do {
 			_Checkdate = date;
@@ -390,6 +389,69 @@ _daysTotal
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Curator STUFF
+CMM_ZEUSLOADOUT = {
+/*
+	Name:			CMM_ZEUSLOADOUT
+    Author:         OzDeaDMeaT
+    Description:    Loadout config for Zeus Player in game
+    Must spawn:     YES
+	Usage Example:	player spawn CMM_ZEUSLOADOUT;
+    
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_Zeus			Zeus Player Object
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private ["_SWRadio","_LRRadio","_Zeus"];
+_Zeus = _this;
+	sleep 0.5;
+	removeAllWeapons _Zeus;
+	_Zeus addweapon "RangeFinder";
+	_Zeus forceAddUniform "U_BG_Guerilla2_1";
+	_Zeus addVest "V_Chestrig_blk";
+	_Zeus linkItem "ItemMap";
+	_Zeus linkItem "ItemGPS";
+	_Zeus linkItem "ItemWatch";
+	_Zeus linkItem "AGM_NVG_Gen4";
+	_SWRadio = [side player, 1] call TFAR_fnc_getSideRadio;
+	_LRRadio = [side player, 0] call TFAR_fnc_getSideRadio;
+	_Zeus linkItem _SWRadio;
+	_Zeus addBackpack _LRRadio;
+	_Zeus addItem "AGM_MapTools";
+	_Zeus addItem "AGM_CableTie";
+	_Zeus addItem "AGM_CableTie";
+	_Zeus addItem "AGM_Bandage";
+	_Zeus addItem "AGM_Bandage";
+	_Zeus addItem "AGM_Bandage";
+	_Zeus addItem "AGM_Bandage";
+	_Zeus addItem "AGM_Bandage";
+	_Zeus addItem "AGM_Bandage";
+	_Zeus addItem "AGM_Bandage";
+	_Zeus addItem "AGM_Bandage";
+	_Zeus addItem "AGM_Bandage";
+	_Zeus addItem "AGM_Bandage";
+	_Zeus addItem "AGM_Morphine";
+	_Zeus addItem "AGM_Morphine";
+	_Zeus addItem "AGM_Morphine";
+	_Zeus addItem "AGM_Morphine";
+	_Zeus addItem "AGM_Morphine";
+	_Zeus addItem "AGM_Epipen";
+	_Zeus addItem "AGM_Epipen";
+	_Zeus addItem "AGM_Epipen";
+	_Zeus addItem "AGM_Epipen";
+	_Zeus addItem "AGM_Epipen";
+	_Zeus addItem "AGM_Bloodbag";
+	_Zeus addItem "AGM_Bloodbag";
+	_Zeus addItem "AGM_Bloodbag";
+	_Zeus addItem "AGM_Bloodbag";
+	_Zeus addItem "AGM_Bloodbag";
+	_Zeus addHeadgear "H_Hat_camo";
+	_Zeus addGoggles "G_Spectacles";
+true;
+};
+
 CMM_GETPARTDMG = {
 /*
 	Name:			CMM_GETPARTDMG
