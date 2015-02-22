@@ -259,6 +259,7 @@ iniDB_SaveMissionData = {
 	If(_missionSuccess) then {MISSION_SUCCESS_HISTORY = (MISSION_SUCCESS_HISTORY +1)};
 	_MissionHistory = [MISSION_HISTORY, MISSION_SUCCESS_HISTORY];
 	_written = [MissionDBName, MissionDBSection, "MissionHistory",_MissionHistory] call iniDB_write;
+true
 };
 iniDB_VehicleSave = {
 private["_this","_veh","_name","_data","_Support","_cargoWeapons","_cargoItems","_cargoMags","_cargoBkPks","_written","_ItemsInTriggerArray","_Array","_fullList","_pos","_dir","_PartDmg","_DupList","_AGM_Logistics_Cargo"];
@@ -296,6 +297,7 @@ if !(isServer) exitWith {};
 		};
 	};
 	_written = [VehicleDBName, "GLOBAL","INDEX-VEHICLES", _Array] call iniDB_write;
+true
 };
 iniDB_VehicleLoad = {
 // 			call iniDB_VehicleLoad;				null = [] spawn iniDB_VehicleLoad;
@@ -403,6 +405,7 @@ _written = [CrateDBName, "GLOBAL","CrateCount", [CRATE_COUNT]] call iniDB_write;
 		};
 	_written = [CrateDBName, "GLOBAL","INDEX-Crates", _Array] call iniDB_write;
 	};
+true
 };
 iniDB_CrateLoad = { //	Usage call iniDB_CrateLoad
 private["_count","_this","_crate","_name","_data","_cargoWeapons","_cargoItems","_cargoMags","_cargoBkPks","_written","_Array","_pos","_dir","_PVArray"];
@@ -480,6 +483,7 @@ _written = [ObjDBName, "GLOBAL","ObjectCount", [OBJECT_COUNT]] call iniDB_write;
 		};
 	_written = [ObjDBName, "GLOBAL","INDEX-Objects", _Array] call iniDB_write;
 	};
+true
 };
 iniDB_ObjectLoad = { //	Usage call iniDB_ObjectLoad
 private["_count","_this","_Obj","_name","_data","_cargoWeapons","_cargoItems","_cargoMags","_cargoBkPks","_written","_Array","_pos","_dir","_Support","_FuelCargo","_AmmoCargo","_RepairCargo"];
@@ -550,6 +554,7 @@ for "_i" from 0 to _count do {
 		};
 	};
 _written = [MarkerDBName, "GLOBAL","INDEX-MARKERS", _iniDBArray] call iniDB_write;
+true
 };
 iniDB_MarkerLoad = {
 private ["_mkr","_pos","_color","_type","_txt","_iniDBArray","_array","_check"];
@@ -581,7 +586,7 @@ iniDB_CleanUp = {
 // Designed to go through DB and clean out old entries that are not refered to anymore.
 };
 iniDB_StartMissionDataLoad ={
-	private["_MissionDate","_MissionFogParams","_MissionWeather","_MissionWind","_check","_MissionLives","_MD","_txt","_MissionData","_MissionHistory","_StartDate","_Player_Index","_days","_RESPAWNPOS","_RETURNPOS"];
+	private["_MissionDate","_MissionFogParams","_MissionWeather","_MissionWind","_check","_MissionLives","_MD","_txt","_MissionData","_MissionHistory","_StartDate","_Player_Index","_days","_RESPAWNPOS","_RETURNPOS","_tmp"];
 	_MD = 0;
 	_check = ([MissionDBName,MissionDBSection,"Date"] call iniDB_Check_Array);
 	If(_check) then {
@@ -662,15 +667,29 @@ iniDB_StartMissionDataLoad ={
 		_Player_Index = ([PlayerDBName,"INDEX","PlayerIndex","ARRAY"] call iniDB_read);
 		Total_PDPlayers = count _Player_Index;
 	} Else {Total_PDPlayers = 0};
-	
 	_txt = format ["Mission Deaths:  %1",CM_DEATHS];
 	CM_DEATHSmkr setMarkerText _txt;
 	_txt = format ["Lives Remaining:  %1",CM_LIVES];
 	CM_LIVESmkr setMarkerText _txt;
 	CAMPAIGN_NAMEmkr setMarkerText CAMPAIGN_NAME;
 	MISSIONCOUNT_mkr setMarkerText format ["Mission No. %1",(MISSION_HISTORY + 1)];
-	_days = ([CAMPAIGN_STARTDATE, date] call CountDays);
+	_days = ([CAMPAIGN_STARTDATE, date] call CMM_COUNTDAYS);
 	CAMPAIGN_DAYSmkr setMarkerText format ["Campaign Days: %1", _days];
+	_check = [CrateDBName, "GLOBAL","CrateCount"] call iniDB_Check_Array;
+	If(_check) then {
+		_tmp = ([CrateDBName, "GLOBAL","CrateCount","ARRAY"] call iniDB_read);
+		CRATE_COUNT = (_tmp select 0);
+	} Else {CRATE_COUNT = 0};
+	_check = [VehicleDBName, "GLOBAL","VehicleCount"] call iniDB_Check_Array;
+	If(_check) then {
+		_tmp = ([VehicleDBName, "GLOBAL","VehicleCount","ARRAY"] call iniDB_read);
+		VEHICLE_COUNT = (_tmp select 0);
+	} Else {VEHICLE_COUNT = 0};
+	_check = [ObjDBName, "GLOBAL","ObjectCount"] call iniDB_Check_Array;
+	If(_check) then {
+		_tmp = ([ObjDBName, "GLOBAL","ObjectCount","ARRAY"] call iniDB_read);
+		OBJECT_COUNT = (_tmp select 0);
+	} Else {OBJECT_COUNT = 0};	
 	OzDM_Srv setVariable ["MISSION-History",[MISSION_HISTORY,MISSION_SUCCESS_HISTORY,DEATHS_HISTORY,Total_PDPlayers,CAMPAIGN_STARTDATE,VEHICLE_COUNT, CRATE_COUNT, OBJECT_COUNT],TRUE];
 	call iniDB_CrateLoad;
 	call iniDB_ObjectLoad;
@@ -683,9 +702,21 @@ iniDB_StartMissionDataLoad ={
 iniDB_EndMission = {
 // [true,"iniDB_EndMission",false,false,false] call BIS_fnc_MP;
 //Usage = true/False spawn iniDB_EndMission
-private ["_this","_missionSuccess","_ALLuid","_VARname","_playerHistory","_uid","_unit","_score","_Missions","_Smissions","_array","_MissionScore","_NewScore","_NewMissions","_NewSMissions","_MissionBonus","_written","_prefix"];
+private ["_this","_missionSuccess","_ALLuid","_VARname","_playerHistory","_uid","_unit","_score","_Missions","_Smissions","_array","_MissionScore","_NewScore","_NewMissions","_NewSMissions","_MissionBonus","_written","_prefix","_waitMarker","_waitObject","_waitCrate","_waitVehicle","_waitMission"];
 _missionSuccess = _this;
 	if(IsServer) then {
+		["Mission Ending Initialized. Find a safe place to End Mission","systemChat",nil,false] call BIS_fnc_MP;
+		sleep 2;
+		["Save Commencing in 5","systemChat",nil,false] call BIS_fnc_MP;
+		sleep 1;
+		["Save Commencing in 4","systemChat",nil,false] call BIS_fnc_MP;
+		sleep 1;
+		["Save Commencing in 3","systemChat",nil,false] call BIS_fnc_MP;		
+		sleep 1;
+		["Save Commencing in 2","systemChat",nil,false] call BIS_fnc_MP;
+		sleep 1;
+		["Save Commencing in 1","systemChat",nil,false] call BIS_fnc_MP;
+		
 		_ALLuid = ([PlayerDBName,"INDEX","PlayerIndex","ARRAY"] call iniDB_read);
 		{
 			//This finds the playable unit for the player and grabs his score.
@@ -705,41 +736,40 @@ _missionSuccess = _this;
 			//diag_log format ["Writing Player %1 Score Data: %2", name _x, _array];
 			_written = [PlayerDBName, _uid, "SCORE",_array] call iniDB_write;
 		} foreach playableUnits;
-		//SAVEMISSIONDATA HERE!!!
-		CMM_SystemChat = "Mission End Initialized. Please exit vehicles and prepare for Data to be Saved";
-		["BME_netcode_CMM_SystemChat","client"] call BME_fnc_publicvariable;
-		sleep 1;
-		_prefix = "Mission Ending in";
-		CMM_SystemChat = format ["%1 30 seconds",_prefix];
-		["BME_netcode_CMM_SystemChat","client"] call BME_fnc_publicvariable;
-		sleep 5;		
-		call iniDB_MarkerSave;
-		sleep 10;
-		CMM_SystemChat = format ["%1 15 seconds",_prefix];
-		["BME_netcode_CMM_SystemChat","client"] call BME_fnc_publicvariable;
-		sleep 5;
-		CMM_SystemChat = format ["%1 10 seconds",_prefix];
-		["BME_netcode_CMM_SystemChat","client"] call BME_fnc_publicvariable;
-		sleep 5;
-		call iniDB_ObjectSave;
-		call iniDB_CrateSave;
-		call iniDB_VehicleSave;
+		//SAVEMISSIONDATA HERE!!!	
+		["Saving Zeus Marker Data","systemChat",nil,false] call BIS_fnc_MP;
+		_waitMarker = [] spawn iniDB_MarkerSave;
+		waitUntil{sleep 0.5; scriptDone _waitMarker};
+		
+		["Saving Zeus Object Data","systemChat",nil,false] call BIS_fnc_MP;
+		_waitObject = [] spawn iniDB_ObjectSave;
+		waitUntil{sleep 0.5; scriptDone _waitObject};
+		
+		["Saving Zeus Crate Data","systemChat",nil,false] call BIS_fnc_MP;
+		_waitCrate = [] spawn iniDB_CrateSave;
+		waitUntil{sleep 0.5; scriptDone _waitCrate};
+		
+		["Saving Zeus Vehicle Data","systemChat",nil,false] call BIS_fnc_MP;
+		_waitVehicle = [] spawn iniDB_VehicleSave;
+		waitUntil{sleep 0.5; scriptDone _waitVehicle};
+
+		["Finalizing Save Data","systemChat",nil,false] call BIS_fnc_MP;
+		_waitMission = _missionSuccess spawn iniDB_SaveMissionData;
+		waitUntil{sleep 0.5; scriptDone _waitMission};
+		
+		/*
+		["Saving Zeus Marker Data","systemChat",nil,false] call BIS_fnc_MP;
+		_waitMarker = call iniDB_MarkerSave;
+		
+		["Saving Zeus Marker Data","systemChat",nil,false] call BIS_fnc_MP;
+		_waitObject = call iniDB_ObjectSave;
+		_waitCrate = call iniDB_CrateSave;
+		_waitVehicle = call iniDB_VehicleSave;
 		_missionSuccess call iniDB_SaveMissionData;
+		
+		*/
 		/////
-		CMM_SystemChat = format ["%1 5 seconds",_prefix];
-		["BME_netcode_CMM_SystemChat","client"] call BME_fnc_publicvariable;
-		sleep 1;
-		CMM_SystemChat = format ["%1 4 seconds",_prefix];
-		["BME_netcode_CMM_SystemChat","client"] call BME_fnc_publicvariable;
-		sleep 1;
-		CMM_SystemChat = format ["%1 3 seconds",_prefix];
-		["BME_netcode_CMM_SystemChat","client"] call BME_fnc_publicvariable;
-		sleep 1;
-		CMM_SystemChat = format ["%1 2 seconds",_prefix];
-		["BME_netcode_CMM_SystemChat","client"] call BME_fnc_publicvariable;
-		sleep 1;
-		CMM_SystemChat = format ["%1 1 seconds",_prefix];
-		["BME_netcode_CMM_SystemChat","client"] call BME_fnc_publicvariable;
+
 		sleep 1;
 		if(_missionSuccess) then {["end1","BIS_fnc_endMission",true,false,false] call BIS_fnc_MP;} Else {["end2","BIS_fnc_endMission",true,false,false] call BIS_fnc_MP;};
 	};

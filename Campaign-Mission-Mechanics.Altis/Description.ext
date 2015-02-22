@@ -50,29 +50,29 @@ class CfgDebriefing
 {  
 	class End1
 	{
-		title = "Mission Successful";
+		title = "Mission Accomplished";
 		subtitle = "";
-		description = "You successfully completed the mission. This will go on your permanent record.";
-		pictureBackground = "";
-		picture = "b_inf";
-		pictureColor[] = {0.0,0.3,0.6,1};
+		description = "This success will greatly help our cause. Well done Soldiers!";
+		pictureBackground = "Images\Win.jpg";
+		picture = "";
+		pictureColor[] = {0.0,0.0,0.0,1};
 	};
 	class End2
 	{
 		title = "Mission Failed";
 		subtitle = "";
-		description = "You Failed to complete the mission assigned. This will go on your permanent record. OzDeaDMeaT's advice?.... 'Suck Less'";
-		pictureBackground = "";
-		picture = "b_inf";
-		pictureColor[] = {0.0,0.3,0.6,1};
+		description = "You Failed to complete the mission assigned. OzDeaDMeaT's advice?.... 'Suck Less!!'";
+		pictureBackground = "Images\Fail.jpg";
+		picture = "";
+		pictureColor[] = {0.0,0.0,0.0,1};
 	};
 	class LOSER
 	{
-		title = "RESERVED SLOT";
-		subtitle = "!!ACCESS DENIED!!";
+		title = "Access Denied";
+		subtitle = "";
 		description = "You are not authorized to play in this slot. Please Select another.";
 		pictureBackground = "";
-		picture = "b_inf";
-		pictureColor[] = {0.0,0.3,0.6,1};
+		picture = "Images\accessdenied.jpg";
+		pictureColor[] = {0.0,0.0,0.,1};
 	};
 };

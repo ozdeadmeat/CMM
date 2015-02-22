@@ -46,6 +46,7 @@ if ((vehicleVarName _player) == "ZeusPlayer") then
 			["RETURN_MKR",return,"LOCAL"] spawn CMM_MOVEMARKER;
 			"RETURN_MKR" setMarkerAlphaLocal 1;
 			_player spawn CMM_ZEUSLOADOUT;
+			_player setpos getpos RESPAWN_POSITION;
 			sleep 3;
 		};
 	}
@@ -451,7 +452,6 @@ _Zeus = _this;
 	_Zeus addGoggles "G_Spectacles";
 true;
 };
-
 CMM_GETPARTDMG = {
 /*
 	Name:			CMM_GETPARTDMG
@@ -1256,6 +1256,26 @@ _unit = _this select 1;
 	} Else {
 	systemChat "Please Stow your equipment before a Appearance";
 	};
+true
+};
+CMM_SYSTEMCHAT = {
+/*
+	Name:			CMM_SYSTEMCHAT
+	Author:			OzDeaDMeaT
+	Description:	SystemChat for use across the network using BIS_FNC_MP
+	Must spawn:		NO
+    Usage Example:	"Test Message" call CMM_SYSTEMCHAT;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			STRING		_msg			Message to be displayed by SystemChat command
+		
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+Private ["_msg"];
+_msg = _this;
+systemChat _msg;
 true
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
