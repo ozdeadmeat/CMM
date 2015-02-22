@@ -65,7 +65,7 @@ class Mission
 	randomSeed=7263683;
 	class Intel
 	{
-		briefingName="BoTM Campaign #1";
+		briefingName="Campaign Mission Mechanics";
 		overviewText="by [BoTM] OzDeaDMeaT";
 		startWeather=0.29999998;
 		startWind=0.099999994;

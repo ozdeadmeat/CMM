@@ -71,8 +71,8 @@ class CfgDebriefing
 		title = "Access Denied";
 		subtitle = "";
 		description = "You are not authorized to play in this slot. Please Select another.";
-		pictureBackground = "";
-		picture = "Images\accessdenied.jpg";
+		pictureBackground = "Images\accessdenied.jpg";
+		picture = "";
 		pictureColor[] = {0.0,0.0,0.,1};
 	};
 };
