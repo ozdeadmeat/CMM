@@ -4,6 +4,7 @@ SPECIAL_SLOT = ["ZeusPlayer","Spectator_1","Spectator_2"]; // These special Slot
 RESERVED_SLOT = ["ZeusPlayer"];
 RESERVED_UID = ["76561197970647342","_SP_PLAYER_"]; //Put Player GUID for people who are allowed to have access to Reserved Slot Units.
 CURATOR_OBJ = Zeus; //Remember, this is not the player, this is the Game Master Module Name
+HELPER_CURATOR_OBJ = [[ZeusPlayer_1,Zeus_1]]; //Locked Down Curator Objects
 CAMPAIGN_FACTION = "BLU_F"; //BLU_G_F , OPF_F , OPF_G_F , IND_F , IND_G_F , CIV_F
 CM_STARTING_LIVES = 8; // This Variable is used for the first time the mission runs only. Then the saved data is used.
 MISSIONSUCCESS_BONUS_SCORE = 100; 	//used in iniDB_Functions at end mission.
@@ -16,7 +17,8 @@ RANKNAME = 	["PRIVATE","CORPORAL","SERGEANT","LIEUTENANT","CAPTAIN","MAJOR","COL
 RANKSN = 	["Pvt","Cpl","Sgt","Lt","Cpt","Maj","Col","Gen","SC"];
 //--------------------------------------------------------------------------------------------------------\\
 //ZEUS STUFF
-Zeus removeCuratorAddons ["a3_modules_f_curator_respawn"]; //Removes Respawn Stuff from Zeus Interface
+CURATOR_OBJ removeCuratorAddons ["a3_modules_f_curator_respawn"]; //Removes Respawn Stuff from Zeus Interface
+ZEUS_LOCKDOWN = ["A3_Modules_F_Curator","A3_Modules_F_Curator_Curator","A3_Modules_F_Curator_Flares","A3_Modules_F_Curator_Misc","A3_Modules_F_Curator_Smokeshells","A3_Modules_F_Bootcamp_Misc"];
 NOTALLOWED=["ModuleOrdnanceRocket_F","ModuleCASMissile_F","ModuleCASGun_F","ModuleCASGunMissile_F","ModuleTimeMultiplier_F","ModulePostprocess_F","ModuleCountdown_F","ModuleRespawnTickets_F","ModuleMissionName_F","ModuleBootcampStage_F","ModuleHint_F","ModuleObjectiveAttackDefend_F",
 "ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","ModuleObjectiveSector_F","ModuleObjectiveGetIn_F","ModuleObjectiveRaceCP_F","ModuleObjectiveRaceFinish_F","ModuleObjectiveRaceStart_F","B_Soldier_VR_F","I_Soldier_VR_F","O_Soldier_VR_F","C_Soldier_VR_F"];
 SPECIAL_BKPK = ["B_UAV_01_backpack_F","B_HMG_01_support_F","B_HMG_01_support_high_F","B_HMG_01_weapon_F","B_HMG_01_A_weapon_F","B_GMG_01_weapon_F","B_GMG_01_A_weapon_F","B_HMG_01_high_weapon_F","B_HMG_01_A_high_weapon_F","B_GMG_01_high_weapon_F","B_GMG_01_A_high_weapon_F","B_Mortar_01_support_F","B_Mortar_01_weapon_F","B_AA_01_weapon_F","B_AT_01_weapon_F","I_UAV_01_backpack_F","I_HMG_01_support_F","I_HMG_01_support_high_F","I_HMG_01_weapon_F","I_HMG_01_A_weapon_F","I_GMG_01_weapon_F","I_GMG_01_A_weapon_F","I_HMG_01_high_weapon_F","I_HMG_01_A_high_weapon_F","I_GMG_01_high_weapon_F","I_GMG_01_A_high_weapon_F","I_Mortar_01_support_F","I_Mortar_01_weapon_F","I_AA_01_weapon_F","I_AT_01_weapon_F","O_UAV_01_backpack_F","O_HMG_01_support_F","O_HMG_01_support_high_F","O_HMG_01_weapon_F","O_HMG_01_A_weapon_F","O_GMG_01_weapon_F","O_GMG_01_A_weapon_F","O_HMG_01_high_weapon_F","O_HMG_01_A_high_weapon_F","O_GMG_01_high_weapon_F","O_GMG_01_A_high_weapon_F","O_Mortar_01_support_F","O_Mortar_01_weapon_F","O_AA_01_weapon_F","O_AT_01_weapon_F"];

@@ -27,7 +27,6 @@ if ((vehicleVarName _player) == "ZeusPlayer") then
 			sleep 3;
 			endMission "LOSER";
 		} Else {
-			
 			3 setRadioMsg "Add Life";
 			4 setRadioMsg "Remove Life";
 			5 setRadioMsg "End Mission (Win)";
@@ -36,7 +35,6 @@ if ((vehicleVarName _player) == "ZeusPlayer") then
 			8 setRadioMsg "Remove Death";
 			9 setRadioMsg "Move Zeus";
 			10 setRadioMsg "Move CursorTarget";
-			
 			Zeus addEventHandler ["CuratorObjectPlaced",{[_this,"CMM_CURATOROBJECTPLACED",ZeusPlayer,false,false] call BIS_fnc_MP}];
 			Zeus addEventHandler ["CuratorObjectDeleted",{[_this,"CMM_CURATOROBJECTREMOVE",ZeusPlayer,false,false] call BIS_fnc_MP}];
 			Zeus addEventHandler ["CuratorMarkerPlaced",{[_this,"CMM_CURATORMARKERPLACED",ZeusPlayer,false,false] call BIS_fnc_MP}];
@@ -45,23 +43,15 @@ if ((vehicleVarName _player) == "ZeusPlayer") then
 			//Starts Marker Stuff on Server
 			["RETURN_MKR",return,"LOCAL"] spawn CMM_MOVEMARKER;
 			"RETURN_MKR" setMarkerAlphaLocal 1;
+			sleep 3;
 			_player spawn CMM_ZEUSLOADOUT;
 			_player setpos getpos RESPAWN_POSITION;
-			sleep 3;
 		};
 	}
 Else
 	{
-	_player call CMM_STRIPPLAYER;
-	3 setRadioMsg "NULL";
-	4 setRadioMsg "NULL";
-	5 setRadioMsg "NULL";
-	6 setRadioMsg "NULL";
-	7 setRadioMsg "NULL";
-	8 setRadioMsg "NULL";
-	9 setRadioMsg "NULL";
-	10 setRadioMsg "NULL";
-	"RETURN_MKR" setMarkerAlphaLocal 0;
+	_player call CMM_NONZEUS;
+	_player spawn CMM_HELPERZEUS;
 	};
 _array = OzDM_Srv getVariable "MISSION-History";
 MISSION_HISTORY = _array select 0;
@@ -90,6 +80,69 @@ if ((vehicleVarName _player) == "ZeusPlayer") then
 	sleep 10;
 	call CMM_SHOWMYSCORE;
 	};
+true
+};
+CMM_HELPERZEUS = {
+/*
+	Name:			CMM_HELPERZEUS
+	Author:			OzDeaDMeaT
+	Description:	Sets up the eventhandlers for Zeus Objects
+	Must spawn:		YES
+    Usage Example:		player call CMM_HELPERZEUS;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_player			Player Object
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private ["_player"];
+_player = _this;
+	for "_i" from 0 to ((count HELPER_CURATOR_OBJ) -1) do {
+		_ZeusPlyr = (HELPER_CURATOR_OBJ select _i) select 0;
+		_ZeusObj = (HELPER_CURATOR_OBJ select _i) select 1;
+		if ((vehicleVarName _player) == str(_ZeusPlyr)) then {
+		//hint "ZeusHelper";
+			removeAllCuratorAddons _ZeusObj;
+			_ZeusObj addEventHandler ["CuratorObjectPlaced",{[_this,"CMM_CURATOROBJECTPLACED",_ZeusPlyr,false,false] call BIS_fnc_MP}];
+			_ZeusObj addEventHandler ["CuratorObjectDeleted",{[_this,"CMM_CURATOROBJECTREMOVE",_ZeusPlyr,false,false] call BIS_fnc_MP}];
+			_ZeusObj addEventHandler ["CuratorMarkerPlaced",{[_this,"CMM_CURATORMARKERPLACED",_ZeusPlyr,false,false] call BIS_fnc_MP}];
+			_ZeusObj addEventHandler ["CuratorMarkerDeleted",{[_this,"CMM_CURATORMARKERREMOVE",_ZeusPlyr,false,false] call BIS_fnc_MP}];
+			sleep 3;
+			_player spawn CMM_ZEUSLOADOUT;
+			_player setpos getpos RESPAWN_POSITION;
+			_ZeusObj addCuratorAddons ZEUS_LOCKDOWN;
+			"RETURN_MKR" setMarkerAlphaLocal 1;
+		};
+	};
+true
+};
+CMM_NONZEUS = {
+/*
+	Name:			CMM_NONZEUS
+	Author:			OzDeaDMeaT
+	Description:	Player Mission Entry Title sequence
+	Must spawn:		NO
+    Usage Example:		player call CMM_NONZEUS;
+	
+	Parameters:
+        Index		Type		Variable		Notes
+		0			OBJECT		_player			Player Object
+    Return:
+					BOOL		true			Returns true when function is complete
+*/
+private ["_player"];
+_player = _this;
+	_player call CMM_STRIPPLAYER;
+	3 setRadioMsg "NULL";
+	4 setRadioMsg "NULL";
+	5 setRadioMsg "NULL";
+	6 setRadioMsg "NULL";
+	7 setRadioMsg "NULL";
+	8 setRadioMsg "NULL";
+	9 setRadioMsg "NULL";
+	10 setRadioMsg "NULL";
+	"RETURN_MKR" setMarkerAlphaLocal 0;
 true
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
