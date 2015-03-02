@@ -39,7 +39,7 @@ if ((vehicleVarName _player) == "ZeusPlayer") then
 			Zeus addEventHandler ["CuratorObjectDeleted",{[_this,"CMM_CURATOROBJECTREMOVE",ZeusPlayer,false,false] call BIS_fnc_MP}];
 			Zeus addEventHandler ["CuratorMarkerPlaced",{[_this,"CMM_CURATORMARKERPLACED",ZeusPlayer,false,false] call BIS_fnc_MP}];
 			Zeus addEventHandler ["CuratorMarkerDeleted",{[_this,"CMM_CURATORMARKERREMOVE",ZeusPlayer,false,false] call BIS_fnc_MP}];
-			Zeus call BIS_fnc_drawCuratorLocations;
+			//Zeus call BIS_fnc_drawCuratorLocations;
 			//Starts Marker Stuff on Server
 			["RETURN_MKR",return,"LOCAL"] spawn CMM_MOVEMARKER;
 			"RETURN_MKR" setMarkerAlphaLocal 1;

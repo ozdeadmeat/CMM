@@ -1,6 +1,6 @@
 CAMPAIGN_NAME = "BoTM Altis #1";
 CAMPAIGN_AUTHOR = "[BoTM] OzDeaDMeaT";
-SPECIAL_SLOT = ["ZeusPlayer","Spectator_1","Spectator_2"]; // These special Slots will not load or save any data when the player uses this slot.
+SPECIAL_SLOT = ["ZeusPlayer","ZeusPlayer_1"]; // These special Slots will not load or save any data when the player uses this slot.
 RESERVED_SLOT = ["ZeusPlayer"];
 RESERVED_UID = ["76561197970647342","_SP_PLAYER_"]; //Put Player GUID for people who are allowed to have access to Reserved Slot Units.
 CURATOR_OBJ = Zeus; //Remember, this is not the player, this is the Game Master Module Name
